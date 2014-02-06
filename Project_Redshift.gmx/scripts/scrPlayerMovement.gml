@@ -1,3 +1,4 @@
+//For some reason, this makes the player move up by default
 switch(keyboard_key){
     case global.upKey1:
         self.image_index=0;
