@@ -50,22 +50,22 @@
             <kind>1</kind>
             <string>
 type = ds_map_find_value(async_load,"type");
+playerID = ds_map_find_value(async_load,"id");
 
 if (type == network_type_connect) {
-   playerID = 0;
-   sock = ds_map_find_value(async_load,"socket");
+   
+   playerSock[playerID] = ds_map_find_value(async_load,"socket");
+   connected[playerID] = true;
+   
 }else if (type == network_type_disconnect) {
-    //
+    connected[playerID] = false;
 }else if (type == network_type_data) {
     buff = ds_map_find_value(async_load,"buffer");
     buffer_seek(buff,buffer_seek_start, 0);
     //display = buffer_read(buff,buffer_s16);
     display = buffer_read(buff,buffer_string);
-    purpose = real(fnStringExplode(display,"|",0));
-    if(purpose == 17) {
-        xmouse2 = real(fnStringExplode(display,"|",1));
-        ymouse2 = real(fnStringExplode(display,"|",2));        
-    }
+    
+    determineNetworkPurpose(display,playerID);
 }
 
 
