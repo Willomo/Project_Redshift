@@ -270,7 +270,7 @@ if shipNameType or passwordType or portType or sizeType {
                 wordHold = serverSecondary[3];
             break;
             case "":
-                network_create_server(network_socket_tcp,real(serverSecondary[2]),real(serverSecondary[3]));
+                instance_create(0,0,server);
                 spaceshipName = serverSecondary[0];
                 for (fontSize=0;fontSize&lt;7;fontSize++) {
                     draw_set_font(shipFont[fontSize]);

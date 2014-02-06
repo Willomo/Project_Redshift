@@ -79,6 +79,7 @@
       <script>scripts\saveScheme.gml</script>
       <script>scripts\saveProfile.gml</script>
     </scripts>
+    <script>scripts\fnStringExplode.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\Arial12</font>
@@ -95,6 +96,7 @@
   <objects name="objects">
     <objects name="Menu">
       <object>objects\menu</object>
+      <object>objects\server</object>
       <object>objects\serverLobby</object>
     </objects>
     <object>objects\objDoor1</object>
