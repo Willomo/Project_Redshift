@@ -1,6 +1,6 @@
 ///selectMenuItem(player)
 
-currentPlayer = argument0;
+selectPlayer = argument0;
 
 if nameEnabled or controlRebind {
     nameEnabled = false;
@@ -14,7 +14,7 @@ if nameEnabled or controlRebind {
         global.profileName[currentProfile] = profileNameHolder;
     }
 } else {
-    switch menuItem[currentMenu[currentPlayer],currentItem[currentMenu[currentPlayer],currentPlayer]]  {
+    switch menuItem[currentMenu[selectPlayer],currentItem[currentMenu[selectPlayer],selectPlayer]]  {
         case "Debug":
              room_goto(rmShip);
         break;
@@ -22,15 +22,15 @@ if nameEnabled or controlRebind {
             game_end();
         break;
         case "Play":
-            currentMenu[currentPlayer] = play;
-            titleText[currentPlayer] = titleList[currentMenu[currentPlayer]];
+            currentMenu[selectPlayer] = play;
+            titleText[selectPlayer] = titleList[currentMenu[selectPlayer]];
         break;
         case "Start Server":
             room_goto(rmServerLobby);
         break;
         case "Profiles":
-            currentMenu[currentPlayer] = profiles;
-            titleText[currentPlayer] = titleList[currentMenu[currentPlayer]];
+            currentMenu[selectPlayer] = profiles;
+            titleText[selectPlayer] = titleList[currentMenu[selectPlayer]];
         break;
         case "Profile Name":
         case "Scheme Name":
@@ -41,19 +41,19 @@ if nameEnabled or controlRebind {
         break;
         
         case "Settings":
-            currentMenu[currentPlayer] = settings;
-            titleText[currentPlayer] = titleList[currentMenu[currentPlayer]];
+            currentMenu[selectPlayer] = settings;
+            titleText[selectPlayer] = titleList[currentMenu[selectPlayer]];
         break;
         case "Gameplay":
-            currentMenu[currentPlayer] = gameplay;
-            titleText[currentPlayer] = titleList[currentMenu[currentPlayer]];
+            currentMenu[selectPlayer] = gameplay;
+            titleText[selectPlayer] = titleList[currentMenu[selectPlayer]];
         break;
         case "Controls":
-            currentMenu[currentPlayer] = controls;
-            titleText[currentPlayer] = titleList[currentMenu[currentPlayer]];
+            currentMenu[selectPlayer] = controls;
+            titleText[selectPlayer] = titleList[currentMenu[selectPlayer]];
         break;
         case "Control Scheme":
-            switch currentMenu[currentPlayer] {
+            switch currentMenu[selectPlayer] {
                 case controls:
                     if currentScheme = 9 {
                         currentScheme = 0;
@@ -103,8 +103,8 @@ if nameEnabled or controlRebind {
             controlRebind = true;
         break;
         case "Video":
-            currentMenu[currentPlayer] = video;
-            titleText[currentPlayer] = titleList[currentMenu[currentPlayer]];
+            currentMenu[selectPlayer] = video;
+            titleText[selectPlayer] = titleList[currentMenu[selectPlayer]];
         break;
         case "Fullscreen":
             if fullscreen = "On" {
@@ -135,8 +135,8 @@ if nameEnabled or controlRebind {
         break;
         
         case "Audio":
-            currentMenu[currentPlayer] = audio;
-            titleText[currentPlayer] = titleList[currentMenu[currentPlayer]];
+            currentMenu[selectPlayer] = audio;
+            titleText[selectPlayer] = titleList[currentMenu[selectPlayer]];
         break;
         case "Voice":
             if global.profileVoice[currentProfile] = array_length_1d(voice) - 1 {
@@ -150,12 +150,12 @@ if nameEnabled or controlRebind {
             saveProfile(currentProfile);
         break;
         case "Back":
-            switch currentMenu[currentPlayer] {
+            switch currentMenu[selectPlayer] {
                 case settings:
                 case profiles:
                 case play:
-                    currentMenu[currentPlayer] = root[currentPlayer];
-                    titleText[currentPlayer] = titleList[currentMenu[currentPlayer]];                
+                    currentMenu[selectPlayer] = root[selectPlayer];
+                    titleText[selectPlayer] = titleList[currentMenu[selectPlayer]];                
                 break;
                 case video:
                     aspect = autoAspect;
@@ -163,8 +163,8 @@ if nameEnabled or controlRebind {
                 case gameplay:
                 case controls:
                 case audio:
-                    currentMenu[currentPlayer] = settings;     
-                    titleText[currentPlayer] = titleList[currentMenu[currentPlayer]];           
+                    currentMenu[selectPlayer] = settings;     
+                    titleText[selectPlayer] = titleList[currentMenu[selectPlayer]];           
                 break;
             }
         break;

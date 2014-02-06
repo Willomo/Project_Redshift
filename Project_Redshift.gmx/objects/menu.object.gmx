@@ -377,7 +377,9 @@ alarm[10] = 0;
     mouseRebind = false;
 } else {
     for(currentPlayer=0;currentPlayer&lt;=global.numPlayers;currentPlayer++) {
-        selectMenuItem(currentPlayer);
+        if global.pause[currentPlayer] {
+           selectMenuItem(currentPlayer);
+        }
     }
 }
 </string>
