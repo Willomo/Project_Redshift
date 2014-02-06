@@ -37,6 +37,7 @@
     <sprite>sprites\sprDoorSelected</sprite>
     <sprite>sprites\sprPlayer1</sprite>
     <sprite>sprites\sprWall1</sprite>
+    <sprite>sprites\sprPlayer</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
