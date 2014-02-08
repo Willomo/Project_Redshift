@@ -99,28 +99,46 @@ alarm[0] = 30;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if !passwordType and passwordEnd != "" {
-    passwordEnd = "";
-} else {
-
-}
-if !shipNameType and shipEnd != ""{
-    shipEnd = "";
-} else {
-
-}
-if !portType and portEnd != ""{
-    portEnd = "";
-} else {
-
-}
-if !sizeType and sizeEnd != ""{
-    sizeEnd = "";
-} else {
-
-}
+            <string>
 for(currentPlayer=0;currentPlayer&lt;global.numPlayers;currentPlayer++) {
     
+}
+
+
+if serverStarted {
+    for (controllerTest = 0;controllerTest&lt;4;controllerTest++) {
+        if gamepad_button_check(controllerTest,gp_start) {
+            for (w=0;w&lt;localPlayers;w++) {
+                if controllerInput[w] = controllerTest {
+                    taken = true;
+                } else {
+                    taken = false;
+                }
+                
+            }
+        }
+    }
+} else {
+    if !passwordType and passwordEnd != "" {
+        passwordEnd = "";
+    } else {
+    
+    }
+    if !shipNameType and shipEnd != ""{
+        shipEnd = "";
+    } else {
+    
+    }
+    if !portType and portEnd != ""{
+        portEnd = "";
+    } else {
+    
+    }
+    if !sizeType and sizeEnd != ""{
+        sizeEnd = "";
+    } else {
+    
+    }
 }
 </string>
           </argument>
@@ -310,7 +328,7 @@ if shipNameType or passwordType or portType or sizeType {
             <string>serverStarted = false;
 
 lineWidth = 2;
-
+localPlayers = 0;
 serverOption[0] = "Ship Name:";
 serverOption[1] = "Password:";
 serverOption[2] = "Port:";
@@ -418,20 +436,27 @@ for (z=0;z&lt;4;z++) {
         
         draw_set_font(MenuFont);
         for (t=0;t&lt;4;t++) {
-            draw_set_halign(fa_right);
-            for(s=0;s&lt;array_length_1d(profileLabel);s++) {
-                draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height(profileLabel[s]) * s,profileLabel[s]);
-            }
-            draw_set_halign(fa_left);
-            draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5,global.profileName[profileOption[0,t]]);
-            draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile:"),global.schemeName[profileOption[1,t]]); 
-            draw_set_halign(fa_center);
-            if t = 0 {
-               readyText = "Start Game";
+            if t &lt; localPlayers {
+                draw_set_halign(fa_right);
+                for(s=0;s&lt;array_length_1d(profileLabel);s++) {
+                    draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height(profileLabel[s]) * s,profileLabel[s]);
+                }
+                draw_set_halign(fa_left);
+                draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5,global.profileName[profileOption[0,t]]);
+                draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile:"),global.schemeName[profileOption[1,t]]); 
+                draw_set_halign(fa_center);
+                if t = 0 {
+                   readyText = "Start Game";
+                } else {
+                   readyText = "Ready";
+                }
+                draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile:") * 2,readyText);     
             } else {
-               readyText = "Ready";
+                draw_set_halign(fa_center);
+                draw_set_font(TitleFont);
+                joinText = "Press Start or Space to join";
+                draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 50,joinText);     
             }
-            draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile:") * 2,readyText);     
         }
         
         

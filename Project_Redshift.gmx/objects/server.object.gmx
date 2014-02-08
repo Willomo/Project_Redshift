@@ -26,6 +26,16 @@
           <argument>
             <kind>1</kind>
             <string>network_create_server(network_socket_tcp,real(serverLobby.serverSecondary[2]),real(serverLobby.serverSecondary[3]) + 1);
+
+for (p=0;p&lt;real(serverLobby.serverSecondary[3]);p++) {
+    slotConnected[p] = false;
+    slotUserName[p] = "Connecting...";
+    slotType[p] = "Peasant";
+}
+
+slotConnected[0] = true;
+slotType[0] = "King";
+
 </string>
           </argument>
         </arguments>

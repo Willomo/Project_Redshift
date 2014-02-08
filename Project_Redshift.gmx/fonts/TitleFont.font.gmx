@@ -19,10 +19,10 @@
     <glyph character="108" x="698" y="276" w="8" h="77" shift="19" offset="6"/>
     <glyph character="61" x="136" y="276" w="41" h="60" shift="50" offset="4"/>
     <glyph character="77" x="714" y="2" w="57" h="77" shift="71" offset="7"/>
-    <glyph character="122" x="668" y="196" w="38" h="77" shift="41" offset="1"/>
     <glyph character="56" x="342" y="196" w="39" h="78" shift="47" offset="4"/>
     <glyph character="35" x="618" y="99" w="46" h="77" shift="47" offset="0"/>
     <glyph character="115" x="708" y="196" w="37" h="78" shift="43" offset="3"/>
+    <glyph character="122" x="668" y="196" w="38" h="77" shift="41" offset="1"/>
     <glyph character="105" x="708" y="276" w="8" h="77" shift="19" offset="6"/>
     <glyph character="47" x="323" y="276" w="25" h="77" shift="24" offset="0"/>
     <glyph character="80" x="714" y="99" w="46" h="77" shift="57" offset="7"/>
@@ -31,12 +31,12 @@
     <glyph character="48" x="383" y="196" w="39" h="78" shift="47" offset="4"/>
     <glyph character="32" x="269" y="276" w="24" h="96" shift="24" offset="0"/>
     <glyph character="91" x="550" y="276" w="17" h="94" shift="24" offset="5"/>
-    <glyph character="114" x="421" y="276" w="23" h="77" shift="28" offset="6"/>
     <glyph character="57" x="465" y="196" w="39" h="78" shift="47" offset="4"/>
-    <glyph character="98" x="628" y="196" w="38" h="78" shift="47" offset="6"/>
     <glyph character="79" x="595" y="2" w="58" h="78" shift="66" offset="4"/>
-    <glyph character="107" x="786" y="196" w="37" h="77" shift="44" offset="6"/>
     <glyph character="97" x="88" y="196" w="41" h="78" shift="47" offset="3"/>
+    <glyph character="98" x="628" y="196" w="38" h="78" shift="47" offset="6"/>
+    <glyph character="107" x="786" y="196" w="37" h="77" shift="44" offset="6"/>
+    <glyph character="114" x="421" y="276" w="23" h="77" shift="28" offset="6"/>
     <glyph character="46" x="728" y="276" w="8" h="77" shift="24" offset="8"/>
     <glyph character="38" x="2" y="99" w="51" h="78" shift="57" offset="4"/>
     <glyph character="100" x="588" y="196" w="38" h="78" shift="47" offset="3"/>
