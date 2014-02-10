@@ -28,6 +28,9 @@ if nameEnabled or controlRebind {
         case "Start Server":
             room_goto(rmServerLobby);
         break;
+        case "Join Server":
+            room_goto(rmServerLobby);
+        break;
         case "Profiles":
             currentMenu[selectPlayer] = profiles;
             titleText[selectPlayer] = titleList[currentMenu[selectPlayer]];

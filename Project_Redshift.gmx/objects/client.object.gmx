@@ -8,51 +8,6 @@
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
-    <event eventtype="0" enumb="0">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>network_create_server(network_socket_tcp,real(serverLobby.serverSecondary[2]),real(serverLobby.serverSecondary[3]) + 1);
-
-for (p=0;p&lt;real(serverLobby.serverSecondary[3]);p++) {
-    slotConnected[p] = false;
-    slotUserName[p] = "Connecting...";
-    slotType[p] = "Peasant";
-}
-
-slotConnected[0] = true;
-slotType[0] = "King";
-
-joinResponse = buffer_create(1,buffer_grow,1);
-
-password = serverLobby.serverSecondary[1];
-    
-if password = "" {
-    response = "1|Confirm";
-} else {
-    response = "1|Password";
-}
-
-buffer_seek(joinResponse,buffer_seek_start,0);
-buffer_write(joinResponse,buffer_string,response);
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
     <event eventtype="7" enumb="68">
       <action>
         <libid>1</libid>
@@ -74,22 +29,13 @@ buffer_write(joinResponse,buffer_string,response);
 type = ds_map_find_value(async_load,"type");
 playerID = ds_map_find_value(async_load,"id");
 
-if (type == network_type_connect) {
-   
-   playerSock[playerID] = ds_map_find_value(async_load,"socket");
-   connected[playerID] = true;
-   buffer_seek(joinResponse,buffer_seek_start,0);
-   network_send_packet(playerSock[playerID],joinResponse,buffer_tell(joinResponse));
-   
-}else if (type == network_type_disconnect) {
-    connected[playerID] = false;
-}else if (type == network_type_data) {
+if (type == network_type_data) {
     buff = ds_map_find_value(async_load,"buffer");
     buffer_seek(buff,buffer_seek_start, 0);
     //display = buffer_read(buff,buffer_s16);
     display = buffer_read(buff,buffer_string);
     
-    determineNetworkPurpose(display,playerID);
+    determineNetworkPurposeClient(display,playerID);
 }
 
 
