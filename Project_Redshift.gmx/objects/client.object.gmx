@@ -26,7 +26,11 @@
           <argument>
             <kind>1</kind>
             <string>clientSock = network_create_socket(network_socket_tcp);
+//ping = 0;
+
 network_connect(clientSock,clientLobby.serverSecondary[0],real(clientLobby.serverSecondary[2]));
+
+global.password = clientLobby.serverSecondary[1];
 </string>
           </argument>
         </arguments>
@@ -49,8 +53,7 @@ network_connect(clientSock,clientLobby.serverSecondary[0],real(clientLobby.serve
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>
-type = ds_map_find_value(async_load,"type");
+            <string>type = ds_map_find_value(async_load,"type");
 playerID = ds_map_find_value(async_load,"id");
 
 if (type == network_type_connect) {
@@ -61,8 +64,8 @@ if (type == network_type_connect) {
     buff = ds_map_find_value(async_load,"buffer");
     buffer_seek(buff,buffer_seek_start,0);
     display = buffer_read(buff,buffer_string);
-    show_message(display);
-    determineNetworkPurposeClient(display);
+    
+    determineNetworkPurposeClient(display,playerID);
 }
 
 

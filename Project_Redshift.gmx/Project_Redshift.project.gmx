@@ -42,6 +42,11 @@
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
+    <background>background\bkgSpace0</background>
+    <background>background\bkgSpace1</background>
+    <background>background\bkgSpace2</background>
+    <background>background\bkgSpace3</background>
+    <background>background\bkgSpace4</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
@@ -117,8 +122,10 @@
     <room>rooms\rmClientLobby</room>
     <room>rooms\rmShip</room>
   </rooms>
-  <constants number="1">
+  <constants number="3">
     <constant name="vk_period">190</constant>
+    <constant name="c_default">c_white</constant>
+    <constant name="c_selected">c_gray</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>

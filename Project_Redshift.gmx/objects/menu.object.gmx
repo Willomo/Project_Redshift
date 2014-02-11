@@ -465,7 +465,24 @@ global.rightKey1ID = ord("D");
 global.rightKey1Mask = "D";
 global.rightKey1Type = "Keyboard";
 
-
+randomize();
+switch irandom(4) {
+    case 0:
+        bkgMainMenu = bkgSpace0;
+    break;
+    case 1:
+        bkgMainMenu = bkgSpace1;
+    break;
+    case 2:
+        bkgMainMenu = bkgSpace2;
+    break;
+    case 3:
+        bkgMainMenu = bkgSpace3;
+    break;
+    case 4:
+        bkgMainMenu = bkgSpace4;
+    break;
+}
 
 
 /*
@@ -506,6 +523,7 @@ for (currentPlayer=0;currentPlayer&lt;=global.numPlayers;currentPlayer++) {
     if currentMenu[currentPlayer] = main {
         draw_set_halign(fa_left);
         draw_set_font(Arial12);
+        draw_set_color(c_default);
         draw_text(view_xview[currentPlayer] + 5,view_yview[currentPlayer] + 5,global.version);
     }
     if global.pause[currentPlayer]{
@@ -517,15 +535,16 @@ for (currentPlayer=0;currentPlayer&lt;=global.numPlayers;currentPlayer++) {
         if (view_current = currentPlayer) {
             draw_set_halign(fa_center);
             draw_set_font(TitleFont);
+            draw_set_color(c_default);
             draw_text(view_xview[currentPlayer] + view_wview[currentPlayer] / 2,view_yview[currentPlayer],titleText[currentPlayer]);
             titleDisplacement = string_height(titleText[currentPlayer]);
             draw_set_font(MenuFont);
             for (menuDraw=0;menuDraw&lt;array_length_2d(menuItem,currentMenu[currentPlayer]);menuDraw++) {
                 itemDisplament = string_height(menuItem[currentMenu[currentPlayer],menuDraw]);
                 if menuDraw = currentItem[currentMenu[currentPlayer],currentPlayer] {
-                    draw_set_color(c_white);
+                    draw_set_color(c_selected);
                 } else {
-                    draw_set_color(c_black);
+                    draw_set_color(c_default);
                 }
                 drawItem = menuItem[currentMenu[currentPlayer],menuDraw];
                 

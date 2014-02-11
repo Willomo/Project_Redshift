@@ -379,6 +379,25 @@ for (z=0;z&lt;4;z++) {
 
 joining = false;
 joined = false;
+
+randomize();
+switch irandom(4) {
+    case 0:
+        bkgMainMenu = bkgSpace0;
+    break;
+    case 1:
+        bkgMainMenu = bkgSpace1;
+    break;
+    case 2:
+        bkgMainMenu = bkgSpace2;
+    break;
+    case 3:
+        bkgMainMenu = bkgSpace3;
+    break;
+    case 4:
+        bkgMainMenu = bkgSpace4;
+    break;
+}
 </string>
           </argument>
         </arguments>
@@ -416,8 +435,9 @@ joined = false;
     }
     //drawView(currentPlayer);
     
-    draw_set_color(c_green);
-    draw_rectangle(view_xview[currentPlayer],view_yview[currentPlayer],view_xview[currentPlayer] + view_wview[currentPlayer],view_yview[currentPlayer] + view_hview[currentPlayer],0);
+    /*draw_set_color(c_green);
+    draw_rectangle(view_xview[currentPlayer],view_yview[currentPlayer],view_xview[currentPlayer] + view_wview[currentPlayer],view_yview[currentPlayer] + view_hview[currentPlayer],0);*/
+    draw_background(bkgMainMenu,view_xview[currentPlayer],view_yview[currentPlayer]);
     draw_set_halign(fa_center);
     if serverStarted {
         draw_set_color(c_olive);
@@ -462,7 +482,7 @@ joined = false;
         draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 6) * 5,view_yview[currentPlayer] + 5,spaceshipName);
         
     } else {
-        draw_set_color(c_black);
+        draw_set_color(c_default);
         draw_set_font(TitleFont);
         draw_set_halign(fa_center);
         draw_text(view_xview[currentPlayer] + view_wview[currentPlayer] / 2,view_yview[currentPlayer],title)
@@ -479,9 +499,9 @@ joined = false;
         
         for(rightDraw=0;rightDraw&lt;array_length_1d(serverOption);rightDraw++) {
             if rightDraw = selectedItem {
-                draw_set_color(c_white);
+                draw_set_color(c_selected);
             } else {
-                draw_set_color(c_black);
+                draw_set_color(c_default);
             }
             if serverSecondary[rightDraw] = "Join Server" or serverSecondary[rightDraw] = "Connecting..." {
                 draw_set_halign(fa_center);    
@@ -516,7 +536,7 @@ joined = false;
         }
     }
     draw_set_font(MenuFont);
-    draw_set_color(c_white);
+    draw_set_color(c_default);
     draw_set_halign(fa_left);
     draw_text(view_xview[currentPlayer] + 5,view_yview[currentPlayer] + 5,"Back");
     draw_set_color(c_black);

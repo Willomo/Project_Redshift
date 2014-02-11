@@ -38,12 +38,14 @@ slotType[0] = "King";
 
 
 
-password = serverLobby.serverSecondary[1];
+global.password = serverLobby.serverSecondary[1];
     
-if password = "" {
+if global.password = "" {
     response = "1|Confirm";
+    show_message("Server NoPass");
 } else {
     response = "1|Password";
+    show_message("Server Pass");
 }
 
 
@@ -74,24 +76,21 @@ type = ds_map_find_value(async_load,"type");
 playerID = ds_map_find_value(async_load,"socket");
 //show_message(playerID);
 if (type == network_type_connect) {
-   
-    //playerSock[playerID] = ds_map_find_value(async_load,"socket");
-    connected[playerID] = true;
-    joinResponse = buffer_create(256,buffer_grow,1);
-    show_message(response);
-    buffer_seek(joinResponse,buffer_seek_start,0);
-    buffer_write(joinResponse,buffer_string,response);
-    buffer_seek(joinResponse,buffer_seek_start,0);
-    network_send_packet(playerID,joinResponse,buffer_tell(joinResponse));
-    /*show_message("Yolo");
-    show_message(playerSock[playerID]);*/
-   
+    if response = "1|Confirm" {
+        //playerSock[playerID] = ds_map_find_value(async_load,"socket");
+        connected[playerID] = true;
+        joinResponse = buffer_create(256,buffer_grow,1);
+        buffer_seek(joinResponse,buffer_seek_start,0);
+        buffer_write(joinResponse,buffer_string,response);
+        
+        network_send_packet(playerID,joinResponse,buffer_tell(joinResponse));
+        buffer_delete(joinResponse);
+    }
 }else if (type == network_type_disconnect) {
     connected[playerID] = false;
 }else if (type == network_type_data) {
     buff = ds_map_find_value(async_load,"buffer");
     buffer_seek(buff,buffer_seek_start, 0);
-    //display = buffer_read(buff,buffer_s16);
     display = buffer_read(buff,buffer_string);
     
     determineNetworkPurpose(display,playerID);
