@@ -35,9 +35,13 @@ creditsItem[4] = "Programmer";
 creditsItem[5] = "Lead Designer";
 creditsItem[6] = "Rye Terrell";
 creditsItem[7] = "Background Art";
-creditsItem[8] = "Christian Mossuto ";
+creditsItem[8] = "Christian Mossuto";
 creditsItem[9] = "Music";
 creditsItem[10] = "Boring (Loop)";
+creditsItem[11] = "Kevin MacLeod";
+creditsItem[12] = "Music";
+creditsItem[13] = "The Complex";
+creditsItem[14] = "Hitman";
 
 creditsFont[0] = Arial128;
 creditsFont[1] = Arial64;
@@ -50,6 +54,10 @@ creditsFont[7] = Arial32;
 creditsFont[8] = Arial64;
 creditsFont[9] = Arial32;
 creditsFont[10] = Arial24;
+creditsFont[11] = Arial64;
+creditsFont[12] = Arial32;
+creditsFont[13] = Arial24;
+creditsFont[14] = Arial24;
 
 
 draw_set_font(creditsFont[0]);
@@ -85,8 +93,19 @@ switch irandom(4) {
         bkgMainMenu = bkgSpace4;
     break;
 }
+player = 0;
 
-global.pause[0] = false;
+view_xview[player] = global.playerViewX[player];
+view_yview[player] = global.playerViewY[player];
+
+view_wview[player] = global.playerViewWidth[player];
+view_hview[player] = global.playerViewHeight[player];
+
+view_xport[player] = global.playerPortX[player];
+view_yport[player] = global.playerPortY[player];
+
+view_wport[player] = global.playerPortWidth[player];
+view_hport[player] = global.playerPortHeight[player];
 </string>
           </argument>
         </arguments>

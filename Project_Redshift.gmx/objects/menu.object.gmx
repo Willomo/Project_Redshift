@@ -571,7 +571,7 @@ global.numPlayers = 0;
 initialiseMenu();
 initialiseVideo();
 initialiseAudio();
-playMusic(MenuMusic)
+playMusic(-1)
 global.version = "Pre-Alpha 0.0.1";
 
 mouseRebind = false;
