@@ -28,6 +28,9 @@
         </sounds>
       </sounds>
     </sounds>
+    <sounds name="Music">
+      <sound>sound\MenuMusic</sound>
+    </sounds>
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\sprPlayerHead</sprite>
@@ -41,7 +44,6 @@
     <sprite>sprites\sprPlayer</sprite>
   </sprites>
   <backgrounds name="background">
-    <background>background\background0</background>
     <background>background\bkgSpace0</background>
     <background>background\bkgSpace1</background>
     <background>background\bkgSpace2</background>
@@ -59,6 +61,7 @@
       <scripts name="initialise">
         <script>scripts\initialiseMenu.gml</script>
         <script>scripts\initialiseVideo.gml</script>
+        <script>scripts\initialiseAudio.gml</script>
         <script>scripts\loadControls.gml</script>
         <script>scripts\loadProfiles.gml</script>
         <script>scripts\convertMask.gml</script>
@@ -75,6 +78,7 @@
       <script>scripts\removeLetter.gml</script>
       <script>scripts\getAspectRatio.gml</script>
       <script>scripts\saveVideoSettings.gml</script>
+      <script>scripts\saveAudioSettings.gml</script>
       <script>scripts\resetVariables.gml</script>
       <script>scripts\rebindControl.gml</script>
       <scripts name="Draw">
@@ -88,6 +92,8 @@
     <script>scripts\fnStringExplode.gml</script>
     <script>scripts\determineNetworkPurpose.gml</script>
     <script>scripts\determineNetworkPurposeClient.gml</script>
+    <script>scripts\script29.gml</script>
+    <script>scripts\playMusic.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\Arial12</font>
@@ -98,6 +104,8 @@
     <font>fonts\Arial48</font>
     <font>fonts\Arial56</font>
     <font>fonts\Arial64</font>
+    <font>fonts\font12</font>
+    <font>fonts\Arial128</font>
     <font>fonts\MenuFont</font>
     <font>fonts\TitleFont</font>
   </fonts>
@@ -108,6 +116,7 @@
       <object>objects\clientLobby</object>
       <object>objects\server</object>
       <object>objects\client</object>
+      <object>objects\credits</object>
     </objects>
     <object>objects\objDoor1</object>
     <object>objects\objDoorParent</object>
@@ -118,6 +127,7 @@
   </objects>
   <rooms name="rooms">
     <room>rooms\rmMain</room>
+    <room>rooms\rmCredits</room>
     <room>rooms\rmServerLobby</room>
     <room>rooms\rmClientLobby</room>
     <room>rooms\rmShip</room>

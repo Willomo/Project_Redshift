@@ -6,50 +6,52 @@ switch sampleVoice {
     case 0:
         switch sample {
             case 1: 
-                audio_play_sound(Adrian_Yes_1,10,false)
+                voiceSay = Adrian_Yes_1;
             break;
             case 2: 
-                audio_play_sound(Adrian_Yes_2,10,false)
+                voiceSay = Adrian_Yes_2;
             break;
             case 3: 
-                audio_play_sound(Adrian_Yes_3,10,false)
+                voiceSay = Adrian_Yes_3;
             break;
             case 4: 
-                audio_play_sound(Adrian_Yes_4,10,false)
+                voiceSay = Adrian_Yes_4;
             break;
         }
     break;
     case 1:
         switch sample {
             case 1: 
-                audio_play_sound(Elizabeth_Yes_1,10,false)
+                voiceSay = Elizabeth_Yes_1;
             break;
             case 2: 
-                audio_play_sound(Elizabeth_Yes_2,10,false)
+                voiceSay = Elizabeth_Yes_2;
             break;
             case 3: 
-                audio_play_sound(Elizabeth_Yes_3,10,false)
+                voiceSay = Elizabeth_Yes_3;
             break;
             case 4: 
-                audio_play_sound(Elizabeth_Yes_4,10,false)
+                voiceSay = Elizabeth_Yes_4;
             break;
         }
     break;
     case 2:
         switch sample {
             case 1: 
-                audio_play_sound(Xander_Yes_1,10,false)
+                voiceSay = Xander_Yes_1;
             break;
             case 2: 
-                audio_play_sound(Xander_Yes_2,10,false)
+                voiceSay = Xander_Yes_2;
             break;
             case 3: 
-                audio_play_sound(Xander_Yes_3,10,false)
+                voiceSay = Xander_Yes_3;
             break;
             case 4: 
-                audio_play_sound(Xander_Yes_4,10,false)
+                voiceSay = Xander_Yes_4;
             break;
         }
     break;
 }
 
+audio_sound_gain(voiceSay,global.voiceVolume / 100,0);
+audio_play_sound(voiceSay,10,false)

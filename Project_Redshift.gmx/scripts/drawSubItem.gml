@@ -48,6 +48,23 @@ switch drawItem {
     case "Move Right":
         drawItem += ":" + global.schemeRightKeyMask[currentScheme];
     break;
+    
+    
+    case "Master Volume":
+        drawItem += ":" + string(global.masterVolume);
+    break;
+    case "Music Volume":
+        drawItem += ":" + string(global.musicVolume);
+    break;
+    case "Effects Volume":
+        drawItem += ":" + string(global.effectsVolume);
+    break;
+    case "Voice Volume":
+        drawItem += ":" + string(global.voiceVolume);
+    break;
+    case "Space Sounds":
+        drawItem += ":On";
+    break;
     default:
         drawItem = drawItem;
     break;

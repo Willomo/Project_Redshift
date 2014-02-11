@@ -47,6 +47,9 @@ if nameEnabled or controlRebind {
             currentMenu[selectPlayer] = settings;
             titleText[selectPlayer] = titleList[currentMenu[selectPlayer]];
         break;
+        case "Credits":
+            room_goto(rmCredits);
+        break;
         case "Gameplay":
             currentMenu[selectPlayer] = gameplay;
             titleText[selectPlayer] = titleList[currentMenu[selectPlayer]];
@@ -166,12 +169,12 @@ if nameEnabled or controlRebind {
                 case gameplay:
                 case controls:
                 case audio:
+                    saveAudioSettings()
                     currentMenu[selectPlayer] = settings;     
                     titleText[selectPlayer] = titleList[currentMenu[selectPlayer]];           
                 break;
             }
         break;
-        
         case "":
         
         break;

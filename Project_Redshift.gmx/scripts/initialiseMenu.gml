@@ -74,7 +74,8 @@ menuItem[main,0] = "Debug";
 menuItem[main,1] = "Play";
 menuItem[main,2] = "Profiles";
 menuItem[main,3] = "Settings";
-menuItem[main,4] = "Quit Game";
+menuItem[main,4] = "Credits";
+menuItem[main,5] = "Quit Game";
 
 menuItem[pause,0] = "Resume";
 menuItem[pause,1] = "Settings";
@@ -117,11 +118,12 @@ menuItem[video,3] = "Resolution";
 menuItem[video,4] = "Apply and Save";
 
 menuItem[audio,0] = "Back";
-menuItem[audio,1] = "Music Volume";
-menuItem[audio,2] = "Effects Volume";
-menuItem[audio,3] = "Voice Volume";
-menuItem[audio,4] = "Space Sounds";
-menuItem[audio,5] = "Apply and Save";
+menuItem[audio,1] = "Master Volume";
+menuItem[audio,2] = "Music Volume";
+menuItem[audio,3] = "Effects Volume";
+menuItem[audio,4] = "Voice Volume";
+menuItem[audio,5] = "Space Sounds";
+menuItem[audio,6] = "Apply and Save";
 
 menuItem[play,0] = "Back";
 menuItem[play,1] = "Start Server";

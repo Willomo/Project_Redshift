@@ -250,7 +250,7 @@ alarm[10] = 0;
         } else {
             switch menuItem[currentMenu[currentPlayer],currentItem[currentMenu[currentPlayer],currentPlayer]]  {
                 case "Voice":
-                    sayYes(currentVoice[currentProfile]);
+                    sayYes(global.profileVoice[currentProfile]);
                 break;
             }
         }
@@ -387,6 +387,120 @@ alarm[10] = 0;
         </arguments>
       </action>
     </event>
+    <event eventtype="6" enumb="51">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if nameEnabled or controlRebind {
+
+} else {
+    switch menuItem[currentMenu[0],currentItem[currentMenu[0],0]]  {
+        case "Master Volume":
+            if global.masterVolume &gt; 0 {
+                global.masterVolume--;
+            }
+        break;
+        case "Music Volume":
+            if global.musicVolume &gt; 0 {
+                global.musicVolume--;
+                audio_sound_gain(global.currentMusic,global.musicVolume / 100,0);
+            }
+        break;
+        case "Effects Volume":
+            if global.effectsVolume &gt; 0 {
+                global.effectsVolume--;
+            }
+        break;
+        case "Voice Volume":
+            if global.voiceVolume &gt; 0 {
+                global.voiceVolume--;
+            }
+        break;
+        case "Space Sounds":
+            drawItem += ":On";
+        break;
+        case "":
+        
+        break;
+    }
+    
+    
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="6" enumb="50">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if nameEnabled or controlRebind {
+
+} else {
+    switch menuItem[currentMenu[0],currentItem[currentMenu[0],0]]  {
+        case "Master Volume":
+            if global.masterVolume &lt; 100 {
+                global.masterVolume++;
+            }
+        break;
+        case "Music Volume":
+            if global.musicVolume &lt; 100 {
+                global.musicVolume++;
+                audio_sound_gain(global.currentMusic,global.musicVolume / 100,0);
+            }
+        break;
+        case "Effects Volume":
+            if global.effectsVolume &lt; 100 {
+                global.effectsVolume++;
+            }
+        break;
+        case "Voice Volume":
+            if global.voiceVolume &lt; 100 {
+                global.voiceVolume++;
+            }
+        break;
+        case "Space Sounds":
+            drawItem += ":On";
+        break;
+        case "":
+        
+        break;
+    }
+    
+    
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="7" enumb="4">
       <action>
         <libid>1</libid>
@@ -416,7 +530,24 @@ if room = rmMain {
     }
 }
 
-
+randomize();
+switch irandom(4) {
+    case 0:
+        bkgMainMenu = bkgSpace0;
+    break;
+    case 1:
+        bkgMainMenu = bkgSpace1;
+    break;
+    case 2:
+        bkgMainMenu = bkgSpace2;
+    break;
+    case 3:
+        bkgMainMenu = bkgSpace3;
+    break;
+    case 4:
+        bkgMainMenu = bkgSpace4;
+    break;
+}
 </string>
           </argument>
         </arguments>
@@ -442,7 +573,8 @@ if room = rmMain {
             <string>
 initialiseMenu();
 initialiseVideo();
-
+initialiseAudio();
+playMusic(MenuMusic)
 global.version = "Pre-Alpha 0.0.1";
 
 mouseRebind = false;
@@ -465,24 +597,7 @@ global.rightKey1ID = ord("D");
 global.rightKey1Mask = "D";
 global.rightKey1Type = "Keyboard";
 
-randomize();
-switch irandom(4) {
-    case 0:
-        bkgMainMenu = bkgSpace0;
-    break;
-    case 1:
-        bkgMainMenu = bkgSpace1;
-    break;
-    case 2:
-        bkgMainMenu = bkgSpace2;
-    break;
-    case 3:
-        bkgMainMenu = bkgSpace3;
-    break;
-    case 4:
-        bkgMainMenu = bkgSpace4;
-    break;
-}
+
 
 
 /*
