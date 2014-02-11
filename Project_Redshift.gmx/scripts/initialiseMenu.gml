@@ -1,8 +1,5 @@
 ///initialiseMenu()
 
-//numPlayers is 0-3
-
-global.numPlayers = 0;
 
 
 nameEnabled = false;
@@ -51,10 +48,19 @@ titleList[play] = "Play";
 
 for (currentPlayer=0;currentPlayer<=global.numPlayers;currentPlayer++) {
 
-    root[currentPlayer] = main;
+    if room = rmMain {
+    
+        global.pause[currentPlayer] = true;
+        root[currentPlayer] = main;
+        
+    } else {
+        root[currentPlayer] = pause;
+        
+        global.pause[currentPlayer] = false;
+    }
     
     titleText[currentPlayer] = "Project Redshift";
-    currentMenu[currentPlayer] = main;
+    currentMenu[currentPlayer] = root[currentPlayer];
     
     currentItem[main,currentPlayer] = 0;
     currentItem[pause,currentPlayer] = 0;
@@ -66,7 +72,6 @@ for (currentPlayer=0;currentPlayer<=global.numPlayers;currentPlayer++) {
     currentItem[audio,currentPlayer] = 0;
     currentItem[play,currentPlayer] = 0;
     
-    global.pause[currentPlayer] = true;
     
 }
 

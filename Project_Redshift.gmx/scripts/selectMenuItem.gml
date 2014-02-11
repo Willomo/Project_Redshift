@@ -25,6 +25,9 @@ if nameEnabled or controlRebind {
             currentMenu[selectPlayer] = play;
             titleText[selectPlayer] = titleList[currentMenu[selectPlayer]];
         break;
+        case "Resume":
+            global.pause[selectPlayer] = false;
+        break;
         case "Start Server":
             room_goto(rmServerLobby);
         break;

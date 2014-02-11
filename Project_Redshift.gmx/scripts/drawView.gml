@@ -2,6 +2,7 @@
 
 player = argument0;
 
+
 view_xview[player] = global.playerViewX[player];
 view_yview[player] = global.playerViewY[player];
 

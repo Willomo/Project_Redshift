@@ -3,7 +3,7 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>-1000</depth>
   <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -98,7 +98,7 @@ for (currentPlayer = 0;currentPlayer&lt;=global.numPlayers;currentPlayer++) {
                 itemDisplament = string_height(menuItem[currentMenu[currentPlayer],currentItem[currentMenu[currentPlayer],currentPlayer]]);
                 if (window_view_mouse_get_x(currentPlayer) &gt; view_xview[currentPlayer]) and (window_view_mouse_get_x(currentPlayer) &lt; view_xview[currentPlayer] + view_wview[currentPlayer]) and (mouse_y &gt; view_yview[currentPlayer]) and (mouse_y &lt; view_yview[currentPlayer] + view_hview[currentPlayer]) { 
                     
-                    item = floor((view_yview[currentPlayer] + window_view_mouse_get_y(currentPlayer) - titleDisplacement) / itemDisplament);
+                    item = floor((mouse_y - view_yview[currentPlayer] /*window_view_mouse_get_y(currentPlayer)*/ - titleDisplacement) / itemDisplament);
                     
                     if item &gt;= array_length_2d(menuItem,currentMenu[currentPlayer]) {
                         currentItem[currentMenu[currentPlayer],currentPlayer] = array_length_2d(menuItem,currentMenu[currentPlayer]) - 1;
@@ -521,14 +521,6 @@ alarm[10] = 0;
             <string>initialiseMenu();
 initialiseVideo();
 
-if room = rmMain {
-
-} else {
-    root = pause;
-    for(currentPlayer=0;currentPlayer&lt;=global.numPlayers;currentPlayer++) {
-        global.pause[currentPlayer] = false;
-    }
-}
 
 randomize();
 switch irandom(4) {
@@ -571,6 +563,11 @@ switch irandom(4) {
           <argument>
             <kind>1</kind>
             <string>
+//numPlayers is 0-3
+
+global.numPlayers = 0;
+
+
 initialiseMenu();
 initialiseVideo();
 initialiseAudio();
@@ -632,21 +629,22 @@ voice[2] = "Xander";
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>
-for (currentPlayer=0;currentPlayer&lt;=global.numPlayers;currentPlayer++) {
-    drawView(currentPlayer);
-    if currentMenu[currentPlayer] = main {
-        draw_set_halign(fa_left);
-        draw_set_font(Arial12);
-        draw_set_color(c_default);
-        draw_text(view_xview[currentPlayer] + 5,view_yview[currentPlayer] + 5,global.version);
-    }
+            <string>for (currentPlayer=0;currentPlayer&lt;=global.numPlayers;currentPlayer++) {
+    
     if global.pause[currentPlayer]{
+        drawView(currentPlayer);
+        if currentMenu[currentPlayer] = main {
+            draw_set_halign(fa_left);
+            draw_set_font(Arial12);
+            draw_set_color(c_default);
+            draw_text(view_xview[currentPlayer] + 5,view_yview[currentPlayer] + 5,global.version);
+        }
         
-        
-        /*view_hborder[currentPlayer] = 5;
-        view_vborder[currentPlayer] = 5;*/
-        
+            
+            
+            /*view_hborder[currentPlayer] = 5;
+            view_vborder[currentPlayer] = 5;*/
+            
         if (view_current = currentPlayer) {
             draw_set_halign(fa_center);
             draw_set_font(TitleFont);
@@ -699,24 +697,34 @@ for (currentPlayer=0;currentPlayer&lt;=global.numPlayers;currentPlayer++) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if nameEnabled or controlRebind {
-    nameEnabled = false;
+            <string>if room = rmMain {
+    if nameEnabled or controlRebind {
+        nameEnabled = false;
+    } else {
+        for(currentPlayer=0;currentPlayer&lt;=global.numPlayers;currentPlayer++) {
+            switch currentMenu[currentPlayer] {
+                case settings:
+                case profiles:
+                case play:
+                    currentMenu[currentPlayer] = root[currentPlayer];                
+                break;
+                case gameplay:
+                case controls:
+                case video:
+                case audio:
+                    currentMenu[currentPlayer] = settings;                
+                break;
+            }
+            titleText[currentPlayer] = titleList[currentMenu[currentPlayer]];          
+        }
+    }
 } else {
     for(currentPlayer=0;currentPlayer&lt;=global.numPlayers;currentPlayer++) {
-        switch currentMenu[currentPlayer] {
-            case settings:
-            case profiles:
-            case play:
-                currentMenu[currentPlayer] = root[currentPlayer];                
-            break;
-            case gameplay:
-            case controls:
-            case video:
-            case audio:
-                currentMenu[currentPlayer] = settings;                
-            break;
+        if global.pause[currentPlayer] = false {
+            global.pause[currentPlayer] = true;
+        } else {
+            global.pause[currentPlayer] = false;
         }
-        titleText[currentPlayer] = titleList[currentMenu[currentPlayer]];          
     }
 }
 </string>

@@ -32,7 +32,7 @@ self.decelerationSpeed=accelerationSpeed*2;
 image_speed=0;
 self.dir="";
 
-player = 0;
+player = 1;
 
 view_enabled = true;
 view_visible[player] = true;
@@ -70,16 +70,14 @@ view_hport[player] = global.playerPortHeight[player];
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if !global.pause[player] {
-    //scrPlayerMovement();
-    
-    //Simplified Basic Movement (For Now)
-    hDirection = global.rightKey1 - global.leftKey1;
-    vDirection = global.downKey1 - global.upKey1;
-    
-    hspeed = hDirection * maxSpeed;
-    vspeed = vDirection * maxSpeed;
-}
+            <string>//scrPlayerMovement();
+
+//Simplified Basic Movement (For Now)
+hDirection = global.rightKey1 - global.leftKey1;
+vDirection = global.downKey1 - global.upKey1;
+
+hspeed = hDirection * maxSpeed;
+vspeed = vDirection * maxSpeed;
 </string>
           </argument>
         </arguments>
@@ -102,12 +100,10 @@ view_hport[player] = global.playerPortHeight[player];
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if !global.pause[player] {
-    scrDoorSelect();
-    scrActivateSelected();
-    
-    image_angle = point_direction(x,y,mouse_x,mouse_y);
-}
+            <string>scrDoorSelect();
+scrActivateSelected();
+
+image_angle = point_direction(x,y,mouse_x,mouse_y);
 </string>
           </argument>
         </arguments>
@@ -130,15 +126,13 @@ view_hport[player] = global.playerPortHeight[player];
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if !global.pause[player] {
-    draw_self();
-    
-    view_xview[player] = self.x - view_wview[player] / 2;
-    view_yview[player] = self.y - view_hview[player] / 2;
-    
-    global.playerViewX[player] = view_xview[player];
-    global.playerViewY[player] = view_yview[player];
-}
+            <string>draw_self();
+
+view_xview[player] = self.x - view_wview[player] / 2;
+view_yview[player] = self.y - view_hview[player] / 2;
+
+global.playerViewX[player] = view_xview[player];
+global.playerViewY[player] = view_yview[player];
 </string>
           </argument>
         </arguments>
