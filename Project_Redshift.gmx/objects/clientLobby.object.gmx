@@ -31,6 +31,33 @@
         </arguments>
       </action>
     </event>
+    <event eventtype="2" enumb="5">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if !joined {
+    joining = false;
+    title = "Join Failed: Timeout";
+    serverSecondary[3] = "Join Server";
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="2" enumb="0">
       <action>
         <libid>1</libid>
@@ -55,11 +82,11 @@
         passwordEnd = "|";
     }
 }
-if shipNameType {
-    if shipEnd = "|" {
-        shipEnd = "";
+if IPType {
+    if IPEnd = "|" {
+        IPEnd = "";
     } else {
-        shipEnd = "|";
+        IPEnd = "|";
     }
 }
 if portType {
@@ -67,13 +94,6 @@ if portType {
         portEnd = "";
     } else {
         portEnd = "|";
-    }
-}
-if sizeType {
-    if sizeEnd = "|" {
-        sizeEnd = "";
-    } else {
-        sizeEnd = "|";
     }
 }
 alarm[0] = 30;
@@ -104,40 +124,36 @@ for(currentPlayer=0;currentPlayer&lt;global.numPlayers;currentPlayer++) {
     
 }
 
-
-if serverStarted {
-    for (controllerTest = 0;controllerTest&lt;4;controllerTest++) {
-        if gamepad_button_check(controllerTest,gp_start) {
-            for (w=0;w&lt;localPlayers;w++) {
-                if controllerInput[w] = controllerTest {
-                    taken = true;
-                } else {
-                    taken = false;
+if !joining {
+    if serverStarted {
+        for (controllerTest = 0;controllerTest&lt;4;controllerTest++) {
+            if gamepad_button_check(controllerTest,gp_start) {
+                for (w=0;w&lt;localPlayers;w++) {
+                    if controllerInput[w] = controllerTest {
+                        taken = true;
+                    } else {
+                        taken = false;
+                    }
+                    
                 }
-                
             }
         }
-    }
-} else {
-    if !passwordType and passwordEnd != "" {
-        passwordEnd = "";
     } else {
-    
-    }
-    if !shipNameType and shipEnd != ""{
-        shipEnd = "";
-    } else {
-    
-    }
-    if !portType and portEnd != ""{
-        portEnd = "";
-    } else {
-    
-    }
-    if !sizeType and sizeEnd != ""{
-        sizeEnd = "";
-    } else {
-    
+        if !passwordType and passwordEnd != "" {
+            passwordEnd = "";
+        } else {
+        
+        }
+        if !IPType and IPEnd != ""{
+            IPEnd = "";
+        } else {
+        
+        }
+        if !portType and portEnd != ""{
+            portEnd = "";
+        } else {
+        
+        }
     }
 }
 </string>
@@ -162,52 +178,41 @@ if serverStarted {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if shipNameType and !typePause{
-    if keyboard_check(vk_backspace) {
-        serverSecondary[0] = removeLetter(serverSecondary[0]);
-    } else {
-        if string_length(serverSecondary[0]) &lt; 16 {
-            serverSecondary[0] += addLetter();
+            <string>if !joining {
+    if IPType and !typePause{
+        if keyboard_check(vk_backspace) {
+            serverSecondary[0] = removeLetter(serverSecondary[0]);
+        } else {
+            if string_length(serverSecondary[0]) &lt; 16 {
+                serverSecondary[0] += addLetter();
+            }
         }
+        typePause = true;
+        alarm[10] = 5;
     }
-    typePause = true;
-    alarm[10] = 5;
-}
-if passwordType and !typePause{
-    if keyboard_check(vk_backspace) {
-        serverSecondary[1] = removeLetter(serverSecondary[1]);
-    } else {
-        if string_length(serverSecondary[1]) &lt; 16 {
-            serverSecondary[1] += addLetter();
+    if passwordType and !typePause{
+        if keyboard_check(vk_backspace) {
+            serverSecondary[1] = removeLetter(serverSecondary[1]);
+        } else {
+            if string_length(serverSecondary[1]) &lt; 16 {
+                serverSecondary[1] += addLetter();
+            }
         }
+        typePause = true;
+        alarm[10] = 5;
     }
-    typePause = true;
-    alarm[10] = 5;
-}
-if portType and !typePause{
-    if keyboard_check(vk_backspace) {
-        serverSecondary[2] = removeLetter(serverSecondary[2]);
-    } else {
-        if string_length(serverSecondary[2]) &lt; 16 {
-            serverSecondary[2] += addNumber(false);
+    if portType and !typePause{
+        if keyboard_check(vk_backspace) {
+            serverSecondary[2] = removeLetter(serverSecondary[2]);
+        } else {
+            if string_length(serverSecondary[2]) &lt; 16 {
+                serverSecondary[2] += addNumber(false);
+            }
         }
+        typePause = true;
+        alarm[10] = 5;
     }
-    typePause = true;
-    alarm[10] = 5;
 }
-if sizeType and !typePause{
-    if keyboard_check(vk_backspace) {
-        serverSecondary[3] = removeLetter(serverSecondary[3]);
-    } else {
-        if string_length(serverSecondary[3]) &lt; 2 {
-            serverSecondary[3] += addNumber(false);
-        }
-    }
-    typePause = true;
-    alarm[10] = 5;
-}
-
-
 </string>
           </argument>
         </arguments>
@@ -230,79 +235,70 @@ if sizeType and !typePause{
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_font(MenuFont);
-
-if shipNameType or passwordType or portType or sizeType {
-    shipNameType = false;
-    passwordType = false;
-    portType = false;
-    sizeType = false;
-    if serverSecondary[0] = ""{
-        serverSecondary[0] = wordHold;
-    }
-    if serverSecondary[2] = ""{
-        serverSecondary[2] = wordHold;
-    }
-    if serverSecondary[3] = "" {
-        serverSecondary[3] = wordHold;
-    }
-    if real(serverSecondary[3]) &lt; 3 {
-        serverSecondary[3] = "3";   
-    }
-    if real(serverSecondary[3]) &gt; 32 {
-        serverSecondary[3] = "32";
-    }
+            <string>if !joining {
+    draw_set_font(MenuFont);
     
-    passwordEnd = "";
-    shipEnd = "";
-    portEnd = "";
-    sizeEnd = "";
-} else if window_view_mouse_get_x(0) &lt; view_xview[0] + string_width("Back") + 5 and window_view_mouse_get_y(0) &lt; view_yview[0] + string_height("Back") + 5 {
-    room_goto(rmMain);
-} else if serverStarted {
-
-} else {
-    if (selectedItem = item){
-        switch serverOption[selectedItem] {
-            case "Ship Name:":
-                shipNameType = true;
-                alarm[0] = 30;
-                shipEnd = "|";
-                wordHold = serverSecondary[0];
-            break;
-            case "Password:":
-                passwordType = true;
-                alarm[0] = 30;
-                passwordEnd = "|";
-            break;
-            case "Port:":
-                portType = true;
-                alarm[0] = 30;
-                portEnd = "|";
-                wordHold = serverSecondary[2];
-            break;
-            case "Maximum Crew Size:":
-                sizeType = true;
-                alarm[0] = 30;
-                sizeEnd = "|";
-                wordHold = serverSecondary[3];
-            break;
-            case "":
-                instance_create(0,0,server);
-                spaceshipName = serverSecondary[0];
-                for (fontSize=0;fontSize&lt;7;fontSize++) {
-                    draw_set_font(shipFont[fontSize]);
-                    if string_width(spaceshipName) &lt; (view_wview[0] / 3){
-                        shipNameFont = shipFont[fontSize];
-                        fontSize = 7;
-                    }
-                }
-                
-                serverStarted = true;
-            break;
+    if IPType or passwordType or portType {
+        IPType = false;
+        passwordType = false;
+        portType = false;
+        if serverSecondary[0] = ""{
+            serverSecondary[0] = wordHold;
         }
-    }
-}    
+        if serverSecondary[2] = ""{
+            serverSecondary[2] = wordHold;
+        }
+        
+        IPEnd = "";
+        shipEnd = "";
+        portEnd = "";
+    } else if window_view_mouse_get_x(0) &lt; view_xview[0] + string_width("Back") + 5 and window_view_mouse_get_y(0) &lt; view_yview[0] + string_height("Back") + 5 {
+        room_goto(rmMain);
+    } else if serverStarted {
+    
+    } else {
+        if (selectedItem = item){
+            switch serverOption[selectedItem] {
+                case "IP:":
+                    IPType = true;
+                    alarm[0] = 30;
+                    shipEnd = "|";
+                    wordHold = serverSecondary[0];
+                break;
+                case "Password:":
+                    passwordType = true;
+                    alarm[0] = 30;
+                    passwordEnd = "|";
+                break;
+                case "Port:":
+                    portType = true;
+                    alarm[0] = 30;
+                    portEnd = "|";
+                    wordHold = serverSecondary[2];
+                break;
+                case "":
+                    joining = true;
+                    serverSecondary[3] = "Connecting...";
+                    alarm[5] = room_speed * 30;
+                    instance_create(0,0,client);
+                /*
+                    
+                    spaceshipName = serverSecondary[0];
+                    for (fontSize=0;fontSize&lt;7;fontSize++) {
+                        draw_set_font(shipFont[fontSize]);
+                        if string_width(spaceshipName) &lt; (view_wview[0] / 3){
+                            shipNameFont = shipFont[fontSize];
+                            fontSize = 7;
+                        }
+                    }
+                    
+                    serverStarted = true;
+                break;
+                */
+            }
+        }
+    }    
+}
 </string>
           </argument>
         </arguments>
@@ -327,22 +323,22 @@ if shipNameType or passwordType or portType or sizeType {
             <kind>1</kind>
             <string>serverStarted = false;
 
+title = "Join Server";
+
 lineWidth = 2;
 localPlayers = 0;
-serverOption[0] = "Ship Name:";
+serverOption[0] = "IP:";
 serverOption[1] = "Password:";
 serverOption[2] = "Port:";
-serverOption[3] = "Maximum Crew Size:";
-serverOption[4] = "";
+serverOption[3] = "";
 
-serverSecondary[0] = "Spaceship";
+serverSecondary[0] = "127.0.0.1";
 serverSecondary[1] = "";
 serverSecondary[2] = "2014";
-serverSecondary[3] = "6";
-serverSecondary[4] = "Start Server";
+serverSecondary[3] = "Join Server";
 
 draw_set_font(TitleFont);
-titleHeight = string_height("Server Settings");
+titleHeight = string_height("Join Server");
 
 draw_set_font(MenuFont);
 itemHeight = string_height("Item");
@@ -351,19 +347,17 @@ selectedItem = 0;
 
 item = 0;
 
-shipNameType = false;
+IPType = false;
 passwordType = false;
 portType = false;
-sizeType = false;
 
 typePause = false;
 
 drawText = "";
 
+IPEnd = "";
 passwordEnd = "";
-shipEnd = "";
 portEnd = "";
-sizeEnd = "";
 
 shipFont[0] = Arial64;
 shipFont[1] = Arial56;
@@ -382,6 +376,9 @@ for (z=0;z&lt;4;z++) {
     profileOption[1,z] = 0;
     profileOption[2,z] = 0;
 }
+
+joining = false;
+joined = false;
 </string>
           </argument>
         </arguments>
@@ -405,7 +402,7 @@ for (z=0;z&lt;4;z++) {
           <argument>
             <kind>1</kind>
             <string>for(currentPlayer=0;currentPlayer&lt;=global.numPlayers;currentPlayer++) {
-    if !shipNameType and !passwordType and !portType and !sizeType and (window_view_mouse_get_x(currentPlayer) &gt; view_xview[currentPlayer]) and (window_view_mouse_get_x(currentPlayer) &lt; view_xview[currentPlayer] + view_wview[currentPlayer]) and (window_view_mouse_get_y(currentPlayer) &gt; view_yview[currentPlayer]) and (window_view_mouse_get_y(currentPlayer) &lt; view_yview[currentPlayer] + view_hview[currentPlayer]) { 
+    if !IPType and !passwordType and !portType and !joining and (window_view_mouse_get_x(currentPlayer) &gt; view_xview[currentPlayer]) and (window_view_mouse_get_x(currentPlayer) &lt; view_xview[currentPlayer] + view_wview[currentPlayer]) and (window_view_mouse_get_y(currentPlayer) &gt; view_yview[currentPlayer]) and (window_view_mouse_get_y(currentPlayer) &lt; view_yview[currentPlayer] + view_hview[currentPlayer]) { 
             
         item = floor((view_yview[currentPlayer] + window_view_mouse_get_y(currentPlayer) - titleHeight) / itemHeight);
         
@@ -468,7 +465,7 @@ for (z=0;z&lt;4;z++) {
         draw_set_color(c_black);
         draw_set_font(TitleFont);
         draw_set_halign(fa_center);
-        draw_text(view_xview[currentPlayer] + view_wview[currentPlayer] / 2,view_yview[currentPlayer],"Server Settings")
+        draw_text(view_xview[currentPlayer] + view_wview[currentPlayer] / 2,view_yview[currentPlayer],title)
         
         draw_set_font(MenuFont);
         draw_set_halign(fa_right);
@@ -486,13 +483,13 @@ for (z=0;z&lt;4;z++) {
             } else {
                 draw_set_color(c_black);
             }
-            if serverSecondary[rightDraw] = "Start Server" {
+            if serverSecondary[rightDraw] = "Join Server" or serverSecondary[rightDraw] = "Connecting..." {
                 draw_set_halign(fa_center);    
             }
             switch serverOption[rightDraw] {
-                case "Ship Name:":
-                    if shipNameType {
-                        drawText = serverSecondary[rightDraw] + shipEnd;
+                case "IP:":
+                    if IPType {
+                        drawText = serverSecondary[rightDraw] + IPEnd;
                     } else {
                         drawText = serverSecondary[rightDraw];
                     }
@@ -507,13 +504,6 @@ for (z=0;z&lt;4;z++) {
                 case "Port:":
                     if portType {
                         drawText = serverSecondary[rightDraw] + portEnd;
-                    } else {
-                        drawText = serverSecondary[rightDraw];
-                    }
-                break;
-                case "Maximum Crew Size:":
-                    if sizeType {
-                        drawText = serverSecondary[rightDraw] + sizeEnd;
                     } else {
                         drawText = serverSecondary[rightDraw];
                     }

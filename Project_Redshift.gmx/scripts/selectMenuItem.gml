@@ -29,7 +29,7 @@ if nameEnabled or controlRebind {
             room_goto(rmServerLobby);
         break;
         case "Join Server":
-            room_goto(rmServerLobby);
+            room_goto(rmClientLobby);
         break;
         case "Profiles":
             currentMenu[selectPlayer] = profiles;

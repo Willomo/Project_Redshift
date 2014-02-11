@@ -52,4 +52,7 @@ if keyboard_check(vk_numpad9) addString += "9"
 
 if keyboard_check(vk_space) {addString += " "}
 
+if keyboard_check(vk_period) addString += "."
+if keyboard_check(vk_decimal) addString += "."
+
 return addString;

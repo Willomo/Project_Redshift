@@ -36,7 +36,7 @@ for (p=0;p&lt;real(serverLobby.serverSecondary[3]);p++) {
 slotConnected[0] = true;
 slotType[0] = "King";
 
-joinResponse = buffer_create(1,buffer_grow,1);
+
 
 password = serverLobby.serverSecondary[1];
     
@@ -46,8 +46,7 @@ if password = "" {
     response = "1|Password";
 }
 
-buffer_seek(joinResponse,buffer_seek_start,0);
-buffer_write(joinResponse,buffer_string,response);
+
 </string>
           </argument>
         </arguments>
@@ -72,14 +71,20 @@ buffer_write(joinResponse,buffer_string,response);
             <kind>1</kind>
             <string>
 type = ds_map_find_value(async_load,"type");
-playerID = ds_map_find_value(async_load,"id");
-
+playerID = ds_map_find_value(async_load,"socket");
+//show_message(playerID);
 if (type == network_type_connect) {
    
-   playerSock[playerID] = ds_map_find_value(async_load,"socket");
-   connected[playerID] = true;
-   buffer_seek(joinResponse,buffer_seek_start,0);
-   network_send_packet(playerSock[playerID],joinResponse,buffer_tell(joinResponse));
+    //playerSock[playerID] = ds_map_find_value(async_load,"socket");
+    connected[playerID] = true;
+    joinResponse = buffer_create(256,buffer_grow,1);
+    show_message(response);
+    buffer_seek(joinResponse,buffer_seek_start,0);
+    buffer_write(joinResponse,buffer_string,response);
+    buffer_seek(joinResponse,buffer_seek_start,0);
+    network_send_packet(playerID,joinResponse,buffer_tell(joinResponse));
+    /*show_message("Yolo");
+    show_message(playerSock[playerID]);*/
    
 }else if (type == network_type_disconnect) {
     connected[playerID] = false;

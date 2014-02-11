@@ -100,6 +100,7 @@
     <objects name="Menu">
       <object>objects\menu</object>
       <object>objects\serverLobby</object>
+      <object>objects\clientLobby</object>
       <object>objects\server</object>
       <object>objects\client</object>
     </objects>
@@ -113,8 +114,12 @@
   <rooms name="rooms">
     <room>rooms\rmMain</room>
     <room>rooms\rmServerLobby</room>
+    <room>rooms\rmClientLobby</room>
     <room>rooms\rmShip</room>
   </rooms>
+  <constants number="1">
+    <constant name="vk_period">190</constant>
+  </constants>
   <help>
     <rtf>help.rtf</rtf>
   </help>
