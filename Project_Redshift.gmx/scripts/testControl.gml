@@ -1,34 +1,36 @@
-///testControl
+///testControl(player)
 
-switch global.upKey1Type {
+playerID = argument0;
+
+switch global.upKeyType[playerID] {
     case "Keyboard":
-        global.upKey1 = keyboard_check(global.upKey1ID);
+        global.upKey[playerID] = keyboard_check(global.upKeyID[playerID]);
     break;
     case "Mouse":
-        global.upKey1 = mouse_check_button(global.upKey1ID);
+        global.upKey[playerID] = mouse_check_button(global.upKeyID[playerID]);
     break;
 }
-switch global.downKey1Type {
+switch global.downKeyType[playerID] {
     case "Keyboard":
-        global.downKey1 = keyboard_check(global.downKey1ID);
+        global.downKey[playerID] = keyboard_check(global.downKeyID[playerID]);
     break;
     case "Mouse":
-        global.downKey1 = mouse_check_button(global.downKey1ID);
+        global.downKey[playerID] = mouse_check_button(global.downKeyID[playerID]);
     break;
 }
-switch global.leftKey1Type {
+switch global.leftKeyType[playerID] {
     case "Keyboard":
-        global.leftKey1 = keyboard_check(global.leftKey1ID);
+        global.leftKey[playerID] = keyboard_check(global.leftKeyID[playerID]);
     break;
     case "Mouse":
-        global.leftKey1 = mouse_check_button(global.leftKey1ID);
+        global.leftKey[playerID] = mouse_check_button(global.leftKeyID[playerID]);
     break;
 }
-switch global.rightKey1Type {
+switch global.rightKeyType[playerID] {
     case "Keyboard":
-        global.rightKey1 = keyboard_check(global.rightKey1ID);
+        global.rightKey[playerID] = keyboard_check(global.rightKeyID[playerID]);
     break;
     case "Mouse":
-        global.rightKey1 = mouse_check_button(global.rightKey1ID);
+        global.rightKey[playerID] = mouse_check_button(global.rightKeyID[playerID]);
     break;
 }

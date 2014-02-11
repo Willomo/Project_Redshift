@@ -126,6 +126,7 @@
     <object>objects\objPlayer1</object>
     <object>objects\objWall</object>
     <object>objects\objWallParent</object>
+    <object>objects\createPlayers</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rmMain</room>

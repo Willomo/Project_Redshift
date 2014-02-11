@@ -32,22 +32,45 @@ self.decelerationSpeed=accelerationSpeed*2;
 image_speed=0;
 self.dir="";
 
-player = 0;
+createWait = true;
 
-view_enabled = true;
-view_visible[player] = true;
+talkKey = ord("V");
+keyPause = false;
 
-view_xview[player] = global.playerViewX[player];
-view_yview[player] = global.playerViewY[player];
+talkMenu = 0;
 
-view_wview[player] = global.playerViewWidth[player];
-view_hview[player] = global.playerViewHeight[player];
+base = 1;
+responses = 2;
 
-view_xport[player] = global.playerPortX[player];
-view_yport[player] = global.playerPortY[player];
+talkList[0,0] = "";
 
-view_wport[player] = global.playerPortWidth[player];
-view_hport[player] = global.playerPortHeight[player];
+talkList[base,0] = "1.Responses";
+
+talkList[responses,0] = "1.Yes";
+talkList[responses,1] = "2.No";
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="5">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>keyPause = false;
 </string>
           </argument>
         </arguments>
@@ -74,8 +97,8 @@ view_hport[player] = global.playerPortHeight[player];
     //scrPlayerMovement();
     
     //Simplified Basic Movement (For Now)
-    hDirection = global.rightKey1 - global.leftKey1;
-    vDirection = global.downKey1 - global.upKey1;
+    hDirection = global.rightKey[player] - global.leftKey[player];
+    vDirection = global.downKey[player] - global.upKey[player];
     
     hspeed = hDirection * maxSpeed;
     vspeed = vDirection * maxSpeed;
@@ -103,10 +126,24 @@ view_hport[player] = global.playerPortHeight[player];
           <argument>
             <kind>1</kind>
             <string>if !global.pause[player] {
-    scrDoorSelect();
-    scrActivateSelected();
+    //scrDoorSelect();
+    //scrActivateSelected();
     
     image_angle = point_direction(x,y,mouse_x,mouse_y);
+    
+    if keyboard_check(talkKey) and !keyPause {
+        keyPause = true;
+        alarm[5] = 3;
+        if talkMenu &gt; 0 {
+            talkMenu = 0; 
+        } else {
+            talkMenu = 1;
+        }
+    } else if keyboard_check(ord("1")) {
+    
+    } else {
+        keyPause = false;
+    }
 }
 </string>
           </argument>
@@ -132,12 +169,15 @@ view_hport[player] = global.playerPortHeight[player];
             <kind>1</kind>
             <string>if !global.pause[player] {
     draw_self();
-    
+    for (talkDraw=0;talkDraw&lt;array_length_2d(talkList,talkMenu);talkDraw++) {
+        draw_text(view_xview[player] + 5, view_yview[player] + 5 + string_height(talkList[talkMenu,talkDraw]) * talkDraw,talkList[talkMenu,talkDraw]);
+    }
     view_xview[player] = self.x - view_wview[player] / 2;
     view_yview[player] = self.y - view_hview[player] / 2;
     
     global.playerViewX[player] = view_xview[player];
     global.playerViewY[player] = view_yview[player];
+    draw_set_halign(fa_left);
 }
 </string>
           </argument>

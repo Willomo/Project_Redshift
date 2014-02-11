@@ -80,12 +80,13 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>testControl();
+            <string>
 if !nameEnabled and nameEndString != "" {
     nameEndString = "";
 }
 
 for (currentPlayer = 0;currentPlayer&lt;=global.numPlayers;currentPlayer++) {
+    testControl(currentPlayer);
     if global.pause[currentPlayer] {
         if controlRebind {
            rebindControl(0);   
@@ -571,6 +572,7 @@ global.numPlayers = 0;
 initialiseMenu();
 initialiseVideo();
 initialiseAudio();
+
 playMusic(-1)
 global.version = "Pre-Alpha 0.0.1";
 
@@ -579,7 +581,7 @@ mouseRebind = false;
 loadControls();
 loadProfiles();
 
-
+scrGlobalVariables();
 
 global.upKey1ID = ord("W");
 global.upKey1Mask = "W";

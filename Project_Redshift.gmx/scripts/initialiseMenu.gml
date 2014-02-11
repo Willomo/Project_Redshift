@@ -47,7 +47,6 @@ titleList[audio] = "Audio";
 titleList[play] = "Play";
 
 for (currentPlayer=0;currentPlayer<=global.numPlayers;currentPlayer++) {
-
     if room = rmMain{
     
         global.pause[currentPlayer] = true;
