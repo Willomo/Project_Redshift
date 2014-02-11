@@ -169,6 +169,7 @@ talkList[responses,1] = "2.No";
             <kind>1</kind>
             <string>if !global.pause[player] {
     draw_self();
+    drawView(player);
     for (talkDraw=0;talkDraw&lt;array_length_2d(talkList,talkMenu);talkDraw++) {
         draw_text(view_xview[player] + 5, view_yview[player] + 5 + string_height(talkList[talkMenu,talkDraw]) * talkDraw,talkList[talkMenu,talkDraw]);
     }
