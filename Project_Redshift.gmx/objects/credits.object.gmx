@@ -35,6 +35,9 @@ creditsItem[4] = "Programmer";
 creditsItem[5] = "Lead Designer";
 creditsItem[6] = "Rye Terrell";
 creditsItem[7] = "Background Art";
+creditsItem[8] = "Christian Mossuto ";
+creditsItem[9] = "Music";
+creditsItem[10] = "Boring (Loop)";
 
 creditsFont[0] = Arial128;
 creditsFont[1] = Arial64;
@@ -44,6 +47,9 @@ creditsFont[4] = Arial32;
 creditsFont[5] = Arial32;
 creditsFont[6] = Arial64;
 creditsFont[7] = Arial32;
+creditsFont[8] = Arial64;
+creditsFont[9] = Arial32;
+creditsFont[10] = Arial24;
 
 
 draw_set_font(creditsFont[0]);
