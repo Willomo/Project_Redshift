@@ -4,15 +4,15 @@ track = argument0;
 
 if track < 0 {
     randomize();
-    switch irandom(2) {
+    switch 0 {//irandom(2) {
         case 0:
             track = MenuMusic1;
         break;
         case 1:
-            track = MenuMusic2;
+            //track = MenuMusic2;
         break;
         case 2:
-            track = MenuMusic3;
+            //track = MenuMusic3;
         break;
     }
 }

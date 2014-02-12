@@ -398,6 +398,20 @@ switch irandom(4) {
         bkgMainMenu = bkgSpace4;
     break;
 }
+
+player = 0;
+
+view_xview[player] = global.playerViewX[player];
+view_yview[player] = global.playerViewY[player];
+
+view_wview[player] = global.playerViewWidth[player];
+view_hview[player] = global.playerViewHeight[player];
+
+view_xport[player] = global.playerPortX[player];
+view_yport[player] = global.playerPortY[player];
+
+view_wport[player] = global.playerPortWidth[player];
+view_hport[player] = global.playerPortHeight[player];
 </string>
           </argument>
         </arguments>

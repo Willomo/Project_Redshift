@@ -401,6 +401,20 @@ switch irandom(4) {
         bkgMainMenu = bkgSpace4;
     break;
 }
+
+player = 0;
+
+view_xview[player] = global.playerViewX[player];
+view_yview[player] = global.playerViewY[player];
+
+view_wview[player] = global.playerViewWidth[player];
+view_hview[player] = global.playerViewHeight[player];
+
+view_xport[player] = global.playerPortX[player];
+view_yport[player] = global.playerPortY[player];
+
+view_wport[player] = global.playerPortWidth[player];
+view_hport[player] = global.playerPortHeight[player];
 </string>
           </argument>
         </arguments>
@@ -445,7 +459,7 @@ switch irandom(4) {
     if serverStarted {
         draw_set_color(c_olive);
         draw_rectangle(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3) * 2,view_yview[currentPlayer],view_xview[currentPlayer] + view_wview[currentPlayer], view_yview[currentPlayer] + view_hview[currentPlayer],0);
-        draw_set_color(c_black);
+        draw_set_color(c_default);
         draw_rectangle(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3) * 2 - lineWidth,view_yview[currentPlayer],view_xview[currentPlayer] + (view_wview[currentPlayer] / 3) * 2 + lineWidth, view_yview[currentPlayer] + view_hview[currentPlayer],0);
         
         draw_rectangle(view_xview[currentPlayer],view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) - lineWidth,view_xview[currentPlayer] + (view_wview[currentPlayer] / 3) * 2,view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) + lineWidth,0);

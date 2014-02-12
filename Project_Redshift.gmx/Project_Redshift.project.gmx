@@ -30,8 +30,6 @@
     </sounds>
     <sounds name="Music">
       <sound>sound\MenuMusic1</sound>
-      <sound>sound\MenuMusic2</sound>
-      <sound>sound\MenuMusic3</sound>
     </sounds>
   </sounds>
   <sprites name="sprites">
