@@ -108,13 +108,34 @@ for(currentPlayer=0;currentPlayer&lt;global.numPlayers;currentPlayer++) {
 if serverStarted {
     for (controllerTest = 0;controllerTest&lt;4;controllerTest++) {
         if gamepad_button_check(controllerTest,gp_start) {
-            for (w=0;w&lt;localPlayers;w++) {
-                if controllerInput[w] = controllerTest {
-                    taken = true;
+            controllerTestContinue = true;
+            controllerTestNum = 0;
+            while controllerTestContinue and controllerTestNum &lt; 4 {
+                if inputMethod[controllerTestNum] != "Controller" and inputMethod[controllerTestNum] != "Keyboard" and !controllerTaken[controllerTest] {
+                    inputMethod[localPlayers] = "Controller";
+                    controllerTaken[controllerTest] = true;
+                    localPlayers++;
+                    controllerTestContinue = false;
                 } else {
-                    taken = false;
+                    controllerTestNum++;
                 }
-                
+            }
+             
+        }
+    }
+    
+    if keyboard_check(vk_space) {
+        keyboardTestContinue = true;
+        keyboardTestNum = 0;
+        while keyboardTestContinue and keyboardTestNum &lt; 4 {
+            if inputMethod[keyboardTestNum] != "Controller" and inputMethod[keyboardTestNum] != "Keyboard" and !keyboardTaken {
+                inputMethod[localPlayers] = "Keyboard";
+                keyboardPlayer = localPlayers;
+                localPlayers++;
+                keyboardTestContinue = false;
+                keyboardTaken = true;
+            } else {
+                keyboardTestNum++;
             }
         }
     }
@@ -140,6 +161,8 @@ if serverStarted {
     
     }
 }
+
+
 </string>
           </argument>
         </arguments>
@@ -380,15 +403,23 @@ shipFont[4] = Arial32;
 shipFont[5] = Arial24;
 shipFont[6] = Arial18;
 
-profileLabel[0] = "Profile:";
-profileLabel[1] = "Control Scheme:";
-profileLabel[2] = "";
+
+profileLabel[0] = "";
+profileLabel[1] = "Input:";
+profileLabel[2] = "Profile:";
+profileLabel[3] = "Control Scheme:";
+profileLabel[4] = "";
 
 for (z=0;z&lt;4;z++) {
     profileOption[0,z] = 0;
     profileOption[1,z] = 0;
     profileOption[2,z] = 0;
+    inputMethod[z] = "";
+    controllerTaken[z] = false;
+    ready[z] = false;
 }
+
+keyboardTaken = false;
 
 randomize();
 switch irandom(4) {
@@ -445,18 +476,7 @@ view_hport[player] = global.playerPortHeight[player];
           <argument>
             <kind>1</kind>
             <string>for(currentPlayer=0;currentPlayer&lt;=global.numPlayers;currentPlayer++) {
-    if !shipNameType and !passwordType and !portType and !sizeType and (window_view_mouse_get_x(currentPlayer) &gt; view_xview[currentPlayer]) and (window_view_mouse_get_x(currentPlayer) &lt; view_xview[currentPlayer] + view_wview[currentPlayer]) and (window_view_mouse_get_y(currentPlayer) &gt; view_yview[currentPlayer]) and (window_view_mouse_get_y(currentPlayer) &lt; view_yview[currentPlayer] + view_hview[currentPlayer]) { 
-            
-        item = floor((view_yview[currentPlayer] + window_view_mouse_get_y(currentPlayer) - titleHeight) / itemHeight);
-        
-        if item &gt;= array_length_1d(serverSecondary) {
-            selectedItem = array_length_1d(serverSecondary) - 1;
-        } else if item &lt; 0 {
-            selectedItem = 0;
-        } else {
-            selectedItem = item;
-        }
-    }
+    
     //drawView(currentPlayer);
     
     /*draw_set_color(c_green);
@@ -478,21 +498,75 @@ view_hport[player] = global.playerPortHeight[player];
         draw_set_font(MenuFont);
         for (t=0;t&lt;4;t++) {
             if t &lt; localPlayers {
+                if !ready[t] and inputMethod[t] = "Keyboard" {
+                    if mouse_y &gt; keyboardPlayer * (view_hview[currentPlayer] / 4) and mouse_y &lt; (keyboardPlayer + 1) * (view_hview[currentPlayer] / 4) and mouse_x &lt; view_wview[currentPlayer] / 1.5{
+                        item = floor((view_yview[currentPlayer] + mouse_y - (keyboardPlayer * (view_hview[currentPlayer] / 4) )/* - titleHeight*/) / itemHeight);
+                        
+                        if item &gt;= array_length_1d(serverSecondary) {
+                            selectedItem = array_length_1d(serverSecondary) - 1;
+                        } else if item &lt; 0 {
+                            selectedItem = 0;
+                        } else {
+                            selectedItem = item;
+                        }   
+                    } else {
+                        item = array_length_1d(serverOption);
+                    }
+                } else {
+                    item = array_length_1d(serverOption);
+                }
+                
                 draw_set_halign(fa_right);
                 for(s=0;s&lt;array_length_1d(profileLabel);s++) {
-                    draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height(profileLabel[s]) * s,profileLabel[s]);
+                    if s = item and inputMethod[t] = "Keyboard" {
+                        draw_set_color(c_selected);
+                    } else {
+                        draw_set_color(c_default);
+                    }
+                    draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile") * s,profileLabel[s]);
                 }
+                
+                
+                draw_set_halign(fa_center);
+                if item = 0 and inputMethod[t] = "Keyboard"{
+                    draw_set_color(c_selected);    
+                } else {
+                    draw_set_color(c_default);
+                }
+                draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5,"Cancel");
                 draw_set_halign(fa_left);
-                draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5,global.profileName[profileOption[0,t]]);
-                draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile:"),global.schemeName[profileOption[1,t]]); 
+                if item = 1 and inputMethod[t] = "Keyboard"{
+                    draw_set_color(c_selected);    
+                } else {
+                    draw_set_color(c_default);
+                }
+                draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile:"),inputMethod[t]);
+                if item = 2 and inputMethod[t] = "Keyboard"{
+                    draw_set_color(c_selected);    
+                } else {
+                    draw_set_color(c_default);
+                }
+                draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile:") * 2,global.profileName[profileOption[0,t]]);
+                if item = 3 and inputMethod[t] = "Keyboard"{
+                    draw_set_color(c_selected);    
+                } else {
+                    draw_set_color(c_default);
+                }
+                draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile:") * 3,global.schemeName[profileOption[1,t]]); 
+                if item = 4 and inputMethod[t] = "Keyboard"{
+                    draw_set_color(c_selected);    
+                } else {
+                    draw_set_color(c_default);
+                }
                 draw_set_halign(fa_center);
                 if t = 0 {
                    readyText = "Start Game";
                 } else {
                    readyText = "Ready";
                 }
-                draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile:") * 2,readyText);     
+                draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile:") * 4,readyText);     
             } else {
+                draw_set_color(c_default);
                 draw_set_halign(fa_center);
                 draw_set_font(TitleFont);
                 joinText = "Press Start or Space to join";
@@ -511,6 +585,18 @@ view_hport[player] = global.playerPortHeight[player];
         }
         
     } else {
+        if !shipNameType and !passwordType and !portType and !sizeType and (window_view_mouse_get_x(currentPlayer) &gt; view_xview[currentPlayer]) and (window_view_mouse_get_x(currentPlayer) &lt; view_xview[currentPlayer] + view_wview[currentPlayer]) and (window_view_mouse_get_y(currentPlayer) &gt; view_yview[currentPlayer]) and (window_view_mouse_get_y(currentPlayer) &lt; view_yview[currentPlayer] + view_hview[currentPlayer]) { 
+                
+            item = floor((view_yview[currentPlayer] + window_view_mouse_get_y(currentPlayer) - titleHeight) / itemHeight);
+            
+            if item &gt;= array_length_1d(serverSecondary) {
+                selectedItem = array_length_1d(serverSecondary) - 1;
+            } else if item &lt; 0 {
+                selectedItem = 0;
+            } else {
+                selectedItem = item;
+            }
+        }
         draw_set_color(c_default);
         draw_set_font(TitleFont);
         draw_set_halign(fa_center);

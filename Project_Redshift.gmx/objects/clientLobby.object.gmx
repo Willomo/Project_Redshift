@@ -149,34 +149,55 @@ for(currentPlayer=0;currentPlayer&lt;global.numPlayers;currentPlayer++) {
 }
 
 if !joining {
-    if serverStarted {
+    if joined {
         for (controllerTest = 0;controllerTest&lt;4;controllerTest++) {
             if gamepad_button_check(controllerTest,gp_start) {
-                for (w=0;w&lt;localPlayers;w++) {
-                    if controllerInput[w] = controllerTest {
-                        taken = true;
+                controllerTestContinue = true;
+                controllerTestNum = 0;
+                while controllerTestContinue and controllerTestNum &lt; 4 {
+                    if inputMethod[controllerTestNum] != "Controller" and inputMethod[controllerTestNum] != "Keyboard" and !controllerTaken[controllerTest] {
+                        inputMethod[localPlayers] = "Controller";
+                        controllerTaken[controllerTest] = true;
+                        localPlayers++;
+                        controllerTestContinue = false;
                     } else {
-                        taken = false;
+                        controllerTestNum++;
                     }
-                    
                 }
+                 
             }
         }
-    } else {
-        if !passwordType and passwordEnd != "" {
-            passwordEnd = "";
-        } else {
         
-        }
-        if !IPType and IPEnd != ""{
-            IPEnd = "";
+        if keyboard_check(vk_space) {
+            keyboardTestContinue = true;
+            keyboardTestNum = 0;
+            while keyboardTestContinue and keyboardTestNum &lt; 4 {
+                if inputMethod[keyboardTestNum] != "Controller" and inputMethod[keyboardTestNum] != "Keyboard" and !keyboardTaken {
+                    inputMethod[localPlayers] = "Keyboard";
+                    keyboardPlayer = localPlayers;
+                    localPlayers++;
+                    keyboardTestContinue = false;
+                    keyboardTaken = true;
+                } else {
+                    keyboardTestNum++;
+                }
+            }
         } else {
-        
-        }
-        if !portType and portEnd != ""{
-            portEnd = "";
-        } else {
-        
+            if !passwordType and passwordEnd != "" {
+                passwordEnd = "";
+            } else {
+            
+            }
+            if !IPType and IPEnd != ""{
+                IPEnd = "";
+            } else {
+            
+            }
+            if !portType and portEnd != ""{
+                portEnd = "";
+            } else {
+            
+            }
         }
     }
 }
@@ -260,68 +281,70 @@ if !joining {
           <argument>
             <kind>1</kind>
             <string>if !joining {
-    draw_set_font(MenuFont);
-    
-    if IPType or passwordType or portType {
-        IPType = false;
-        passwordType = false;
-        portType = false;
-        if serverSecondary[0] = ""{
-            serverSecondary[0] = wordHold;
-        }
-        if serverSecondary[2] = ""{
-            serverSecondary[2] = wordHold;
-        }
+    if !joined {
+        draw_set_font(MenuFont);
         
-        IPEnd = "";
-        shipEnd = "";
-        portEnd = "";
-    } else if window_view_mouse_get_x(0) &lt; view_xview[0] + string_width("Back") + 5 and window_view_mouse_get_y(0) &lt; view_yview[0] + string_height("Back") + 5 {
-        room_goto(rmMain);
-    } else if serverStarted {
-    
-    } else {
-        if (selectedItem = item){
-            switch serverOption[selectedItem] {
-                case "IP:":
-                    IPType = true;
-                    alarm[0] = 30;
-                    shipEnd = "|";
-                    wordHold = serverSecondary[0];
-                break;
-                case "Password:":
-                    passwordType = true;
-                    alarm[0] = 30;
-                    passwordEnd = "|";
-                break;
-                case "Port:":
-                    portType = true;
-                    alarm[0] = 30;
-                    portEnd = "|";
-                    wordHold = serverSecondary[2];
-                break;
-                case "":
-                    joining = true;
-                    serverSecondary[3] = "Connecting...";
-                    alarm[5] = room_speed * 30;
-                    clientObject = instance_create(0,0,client);
-                /*
-                    
-                    spaceshipName = serverSecondary[0];
-                    for (fontSize=0;fontSize&lt;7;fontSize++) {
-                        draw_set_font(shipFont[fontSize]);
-                        if string_width(spaceshipName) &lt; (view_wview[0] / 3){
-                            shipNameFont = shipFont[fontSize];
-                            fontSize = 7;
-                        }
-                    }
-                    
-                    serverStarted = true;
-                break;
-                */
+        if IPType or passwordType or portType {
+            IPType = false;
+            passwordType = false;
+            portType = false;
+            if serverSecondary[0] = ""{
+                serverSecondary[0] = wordHold;
             }
-        }
-    }    
+            if serverSecondary[2] = ""{
+                serverSecondary[2] = wordHold;
+            }
+            
+            IPEnd = "";
+            shipEnd = "";
+            portEnd = "";
+        } else if window_view_mouse_get_x(0) &lt; view_xview[0] + string_width("Back") + 5 and window_view_mouse_get_y(0) &lt; view_yview[0] + string_height("Back") + 5 {
+            room_goto(rmMain);
+        } else if joined {
+        
+        } else {
+            if (selectedItem = item){
+                switch serverOption[selectedItem] {
+                    case "IP:":
+                        IPType = true;
+                        alarm[0] = 30;
+                        shipEnd = "|";
+                        wordHold = serverSecondary[0];
+                    break;
+                    case "Password:":
+                        passwordType = true;
+                        alarm[0] = 30;
+                        passwordEnd = "|";
+                    break;
+                    case "Port:":
+                        portType = true;
+                        alarm[0] = 30;
+                        portEnd = "|";
+                        wordHold = serverSecondary[2];
+                    break;
+                    case "":
+                        joining = true;
+                        serverSecondary[3] = "Connecting...";
+                        alarm[5] = room_speed * 30;
+                        clientObject = instance_create(0,0,client);
+                    /*
+                        
+                        spaceshipName = serverSecondary[0];
+                        for (fontSize=0;fontSize&lt;7;fontSize++) {
+                            draw_set_font(shipFont[fontSize]);
+                            if string_width(spaceshipName) &lt; (view_wview[0] / 3){
+                                shipNameFont = shipFont[fontSize];
+                                fontSize = 7;
+                            }
+                        }
+                        
+                        serverStarted = true;
+                    break;
+                    */
+                }
+            }
+        }    
+    }
 }
 </string>
           </argument>
@@ -394,15 +417,22 @@ shipFont[4] = Arial32;
 shipFont[5] = Arial24;
 shipFont[6] = Arial18;
 
-profileLabel[0] = "Profile:";
-profileLabel[1] = "Control Scheme:";
-profileLabel[2] = "";
+profileLabel[0] = "";
+profileLabel[1] = "Input:";
+profileLabel[2] = "Profile:";
+profileLabel[3] = "Control Scheme:";
+profileLabel[4] = "";
 
 for (z=0;z&lt;4;z++) {
     profileOption[0,z] = 0;
     profileOption[1,z] = 0;
     profileOption[2,z] = 0;
+    inputMethod[z] = "";
+    controllerTaken[z] = false;
+    ready[z] = false;
 }
+
+keyboardTaken = false;
 
 joining = false;
 joined = false;
@@ -462,6 +492,196 @@ view_hport[player] = global.playerPortHeight[player];
           <argument>
             <kind>1</kind>
             <string>for(currentPlayer=0;currentPlayer&lt;=global.numPlayers;currentPlayer++) {
+    
+    //drawView(currentPlayer);
+    
+    /*draw_set_color(c_green);
+    draw_rectangle(view_xview[currentPlayer],view_yview[currentPlayer],view_xview[currentPlayer] + view_wview[currentPlayer],view_yview[currentPlayer] + view_hview[currentPlayer],0);*/
+    draw_background(bkgMainMenu,view_xview[currentPlayer],view_yview[currentPlayer]);
+    draw_set_halign(fa_center);
+    if joined {
+        draw_set_color(c_olive);
+        draw_rectangle(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3) * 2,view_yview[currentPlayer],view_xview[currentPlayer] + view_wview[currentPlayer], view_yview[currentPlayer] + view_hview[currentPlayer],0);
+        draw_set_color(c_default);
+        draw_rectangle(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3) * 2 - lineWidth,view_yview[currentPlayer],view_xview[currentPlayer] + (view_wview[currentPlayer] / 3) * 2 + lineWidth, view_yview[currentPlayer] + view_hview[currentPlayer],0);
+        
+        draw_rectangle(view_xview[currentPlayer],view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) - lineWidth,view_xview[currentPlayer] + (view_wview[currentPlayer] / 3) * 2,view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) + lineWidth,0);
+        draw_rectangle(view_xview[currentPlayer],view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * 2 - lineWidth,view_xview[currentPlayer] + (view_wview[currentPlayer] / 3) * 2,view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * 2 + lineWidth,0);
+        draw_rectangle(view_xview[currentPlayer],view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * 3- lineWidth,view_xview[currentPlayer] + (view_wview[currentPlayer] / 3) * 2,view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * 3 + lineWidth,0); 
+        
+        
+        
+        draw_set_font(MenuFont);
+        for (t=0;t&lt;4;t++) {
+            if t &lt; localPlayers {
+                if !ready[t] and inputMethod[t] = "Keyboard" {
+                    if mouse_y &gt; keyboardPlayer * (view_hview[currentPlayer] / 4) and mouse_y &lt; (keyboardPlayer + 1) * (view_hview[currentPlayer] / 4) and mouse_x &lt; view_wview[currentPlayer] / 1.5{
+                        item = floor((view_yview[currentPlayer] + mouse_y - (keyboardPlayer * (view_hview[currentPlayer] / 4) )/* - titleHeight*/) / itemHeight);
+                        
+                        if item &gt;= array_length_1d(serverSecondary) {
+                            selectedItem = array_length_1d(serverSecondary) - 1;
+                        } else if item &lt; 0 {
+                            selectedItem = 0;
+                        } else {
+                            selectedItem = item;
+                        }   
+                    } else {
+                        item = array_length_1d(serverOption);
+                    }
+                } else {
+                    item = array_length_1d(serverOption);
+                }
+                
+                draw_set_halign(fa_right);
+                for(s=0;s&lt;array_length_1d(profileLabel);s++) {
+                    if s = item and inputMethod[t] = "Keyboard" {
+                        draw_set_color(c_selected);
+                    } else {
+                        draw_set_color(c_default);
+                    }
+                    draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile") * s,profileLabel[s]);
+                }
+                
+                
+                draw_set_halign(fa_center);
+                if item = 0 and inputMethod[t] = "Keyboard"{
+                    draw_set_color(c_selected);    
+                } else {
+                    draw_set_color(c_default);
+                }
+                draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5,"Cancel");
+                draw_set_halign(fa_left);
+                if item = 1 and inputMethod[t] = "Keyboard"{
+                    draw_set_color(c_selected);    
+                } else {
+                    draw_set_color(c_default);
+                }
+                draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile:"),inputMethod[t]);
+                if item = 2 and inputMethod[t] = "Keyboard"{
+                    draw_set_color(c_selected);    
+                } else {
+                    draw_set_color(c_default);
+                }
+                draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile:") * 2,global.profileName[profileOption[0,t]]);
+                if item = 3 and inputMethod[t] = "Keyboard"{
+                    draw_set_color(c_selected);    
+                } else {
+                    draw_set_color(c_default);
+                }
+                draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile:") * 3,global.schemeName[profileOption[1,t]]); 
+                if item = 4 and inputMethod[t] = "Keyboard"{
+                    draw_set_color(c_selected);    
+                } else {
+                    draw_set_color(c_default);
+                }
+                draw_set_halign(fa_center);
+                
+                readyText = "Ready";
+                
+                draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile:") * 4,readyText);     
+            } else {
+                draw_set_color(c_default);
+                draw_set_halign(fa_center);
+                draw_set_font(TitleFont);
+                joinText = "Press Start or Space to join";
+                draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 50,joinText);     
+            }
+        }
+        
+        
+        draw_set_halign(fa_center);
+        draw_set_font(shipNameFont);
+        draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 6) * 5,view_yview[currentPlayer] + 5,spaceshipName);
+        shipNameDisplacement = string_height(spaceshipName);
+        draw_set_font(Arial24);
+        for (drawUser=0;drawUser&lt;=global.maxCrew;drawUser++) {
+            draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 6) * 5,view_yview[currentPlayer] + 10 + shipNameDisplacement + string_height(userDraw[drawUser]) * drawUser,userDraw[drawUser]);
+        }
+        
+    } else {
+        if !IPType and !passwordType and !portType and !joining and (window_view_mouse_get_x(currentPlayer) &gt; view_xview[currentPlayer]) and (window_view_mouse_get_x(currentPlayer) &lt; view_xview[currentPlayer] + view_wview[currentPlayer]) and (window_view_mouse_get_y(currentPlayer) &gt; view_yview[currentPlayer]) and (window_view_mouse_get_y(currentPlayer) &lt; view_yview[currentPlayer] + view_hview[currentPlayer]) { 
+                
+            item = floor((view_yview[currentPlayer] + window_view_mouse_get_y(currentPlayer) - titleHeight) / itemHeight);
+            
+            if item &gt;= array_length_1d(serverSecondary) {
+                selectedItem = array_length_1d(serverSecondary) - 1;
+            } else if item &lt; 0 {
+                selectedItem = 0;
+            } else {
+                selectedItem = item;
+            }
+        }
+        draw_set_color(c_default);
+        draw_set_font(TitleFont);
+        draw_set_halign(fa_center);
+        draw_text(view_xview[currentPlayer] + view_wview[currentPlayer] / 2,view_yview[currentPlayer],"Server Settings")
+        
+        draw_set_font(MenuFont);
+        draw_set_halign(fa_right);
+        
+        
+        
+        for(leftDraw=0;leftDraw&lt;array_length_1d(serverOption);leftDraw++) {
+            draw_text(view_xview[currentPlayer] + view_wview[currentPlayer] / 2,view_yview[currentPlayer] + titleHeight + leftDraw * itemHeight,serverOption[leftDraw]);
+        }
+        draw_set_halign(fa_left);
+        
+        for(rightDraw=0;rightDraw&lt;array_length_1d(serverOption);rightDraw++) {
+            if rightDraw = selectedItem {
+                draw_set_color(c_selected);
+            } else {
+                draw_set_color(c_default);
+            }
+            if serverSecondary[rightDraw] = "Start Server" {
+                draw_set_halign(fa_center);    
+            }
+            switch serverOption[rightDraw] {
+                case "Ship Name:":
+                    if shipNameType {
+                        drawText = serverSecondary[rightDraw] + shipEnd;
+                    } else {
+                        drawText = serverSecondary[rightDraw];
+                    }
+                break;
+                case "Password:":
+                    if passwordType {
+                        drawText = serverSecondary[rightDraw] + passwordEnd;
+                    } else {
+                        drawText = serverSecondary[rightDraw];
+                    }
+                break;
+                case "Port:":
+                    if portType {
+                        drawText = serverSecondary[rightDraw] + portEnd;
+                    } else {
+                        drawText = serverSecondary[rightDraw];
+                    }
+                break;
+                case "Maximum Crew Size:":
+                    if sizeType {
+                        drawText = serverSecondary[rightDraw] + sizeEnd;
+                    } else {
+                        drawText = serverSecondary[rightDraw];
+                    }
+                break;
+                case "":
+                    drawText = serverSecondary[rightDraw];
+                break;
+            }
+            draw_text(view_xview[currentPlayer] + view_wview[currentPlayer] / 2,view_yview[currentPlayer] + titleHeight + rightDraw * itemHeight,drawText);
+        }
+    }
+    draw_set_font(MenuFont);
+    draw_set_color(c_default);
+    draw_set_halign(fa_left);
+    draw_text(view_xview[currentPlayer] + 5,view_yview[currentPlayer] + 5,"Back");
+    draw_set_color(c_default);
+    
+    
+}
+
+
+/*for(currentPlayer=0;currentPlayer&lt;=global.numPlayers;currentPlayer++) {
     if !IPType and !passwordType and !portType and !joining and (window_view_mouse_get_x(currentPlayer) &gt; view_xview[currentPlayer]) and (window_view_mouse_get_x(currentPlayer) &lt; view_xview[currentPlayer] + view_wview[currentPlayer]) and (window_view_mouse_get_y(currentPlayer) &gt; view_yview[currentPlayer]) and (window_view_mouse_get_y(currentPlayer) &lt; view_yview[currentPlayer] + view_hview[currentPlayer]) { 
             
         item = floor((view_yview[currentPlayer] + window_view_mouse_get_y(currentPlayer) - titleHeight) / itemHeight);
@@ -478,7 +698,7 @@ view_hport[player] = global.playerPortHeight[player];
     
     /*draw_set_color(c_green);
     draw_rectangle(view_xview[currentPlayer],view_yview[currentPlayer],view_xview[currentPlayer] + view_wview[currentPlayer],view_yview[currentPlayer] + view_hview[currentPlayer],0);*/
-    draw_background(bkgMainMenu,view_xview[currentPlayer],view_yview[currentPlayer]);
+    /*draw_background(bkgMainMenu,view_xview[currentPlayer],view_yview[currentPlayer]);
     draw_set_halign(fa_center);
     if joined {
         draw_set_color(c_olive);
@@ -590,7 +810,7 @@ view_hport[player] = global.playerPortHeight[player];
     
     
 }
-
+*/
 </string>
           </argument>
         </arguments>
