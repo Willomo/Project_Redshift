@@ -28,7 +28,7 @@
             <string>clientSock = network_create_socket(network_socket_tcp);
 //ping = 0;
 
-clientConnection = network_connect(clientSock,string(clientLobby.serverSecondary[0]),real(clientLobby.serverSecondary[2]));
+clientConnection = network_connect(clientSock,clientLobby.serverSecondary[0],real(clientLobby.serverSecondary[2]));
 
 global.password = clientLobby.serverSecondary[1];
 </string>

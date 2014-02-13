@@ -1,5 +1,5 @@
 ///determineNetworkPurpose(input,id,playerID)
-
+//Format for input
 input = argument0;
 playerSend = argument1;
 playerSendID = argument2;
@@ -21,12 +21,18 @@ if input != "" {
                 
            break;
            case 1:
-                clientPassword = fnStringExplode(input,"|",1);
+                if global.password != "" {
+                    clientPassword = fnStringExplode(input,"|",2);
+                } else {
+                    clientPassword = "";
+                }
                 if clientPassword = global.password {
                     joinResponse = buffer_create(256,buffer_grow,1);
-                    buffer_seek(joinResponse,buffer_seek_start,0);
-                    buffer_write(joinResponse,buffer_string,string(playerSendID) + "|1|Confirm");
+                    sendResponse = string(playerSendID) + "|1|Confirm|" + string(serverLobby.fontSend) + "|" + serverLobby.spaceshipName + "|" + string(global.maxCrew);
                     
+                    
+                    buffer_seek(joinResponse,buffer_seek_start,0);
+                    buffer_write(joinResponse,buffer_string,sendResponse);
                     network_send_packet(playerSend,joinResponse,buffer_tell(joinResponse));
                     //playerSock[playerSend] = ds_map_find_value(async_load,"socket");
                     connected[playerSend] = true;
@@ -38,7 +44,7 @@ if input != "" {
                 } else {
                     joinResponse = buffer_create(256,buffer_grow,1);
                     buffer_seek(joinResponse,buffer_seek_start,0);
-                    buffer_write(joinResponse,buffer_string,"1|Incorrect");
+                    buffer_write(joinResponse,buffer_string,string(playerSendID) + "|1|Incorrect");
                     
                     network_send_packet(playerSend,joinResponse,buffer_tell(joinResponse));
                 }

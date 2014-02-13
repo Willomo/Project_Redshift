@@ -25,7 +25,9 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>network_create_server(network_socket_tcp,real(serverLobby.serverSecondary[2]),real(serverLobby.serverSecondary[3]) + 1);
+            <string>
+
+network_create_server(network_socket_tcp,real(serverLobby.serverSecondary[2]),global.maxCrew + 1);
 
 for (p=0;p&lt;real(serverLobby.serverSecondary[3]);p++) {
     slotConnected[p] = false;
@@ -80,7 +82,7 @@ if (type == network_type_connect) {
         connected[playerID] = true;
         joinResponse = buffer_create(256,buffer_grow,1);
         buffer_seek(joinResponse,buffer_seek_start,0);
-        buffer_write(joinResponse,buffer_string,string(networkPlayerID) + "|" + response);
+        buffer_write(joinResponse,buffer_string,string(playerID) + "|1|Password");
         
         network_send_packet(playerSock[playerID],joinResponse,buffer_tell(joinResponse));
         buffer_delete(joinResponse);

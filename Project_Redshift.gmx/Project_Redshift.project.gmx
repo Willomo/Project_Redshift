@@ -94,6 +94,7 @@
     <script>scripts\determineNetworkPurposeClient.gml</script>
     <script>scripts\script29.gml</script>
     <script>scripts\playMusic.gml</script>
+    <script>scripts\addPlayer.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\Arial12</font>
@@ -112,11 +113,11 @@
   <objects name="objects">
     <objects name="Menu">
       <object>objects\menu</object>
+      <object>objects\credits</object>
       <object>objects\serverLobby</object>
       <object>objects\clientLobby</object>
       <object>objects\server</object>
       <object>objects\client</object>
-      <object>objects\credits</object>
     </objects>
     <object>objects\objDoor1</object>
     <object>objects\objDoorParent</object>
