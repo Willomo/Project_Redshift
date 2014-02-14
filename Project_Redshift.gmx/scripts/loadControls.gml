@@ -94,7 +94,29 @@ global.schemeLookStickMask[9] = ini_read_string("Scheme10","LookStick","");
 
 ini_close();
 
-for (currentScheme=0;currentScheme<10;currentScheme++) {
+//Default Keyboard
+
+global.schemeName[10] = "Default Keyboard";
+global.schemeType[10] = "Keyboard";
+global.schemeUpKeyMask[10] = "W";
+global.schemeDownKeyMask[10] = "S";
+global.schemeLeftKeyMask[10] = "A";
+global.schemeRightKeyMask[10] = "D";
+global.schemeMovementStickMask[10] = "";
+global.schemeLookStickMask[10] = "";
+
+//Default Controller
+
+global.schemeName[11] = "Default Controller";
+global.schemeType[11] = "Controller";
+global.schemeUpKeyMask[11] = "";
+global.schemeDownKeyMask[11] = "";
+global.schemeLeftKeyMask[11] = "";
+global.schemeRightKeyMask[11] = "";
+global.schemeMovementStickMask[11] = "Right";
+global.schemeLookStickMask[11] = "Left";
+
+for (currentScheme=0;currentScheme<12;currentScheme++) {
     global.schemeUpKey[currentScheme] = convertMask(global.schemeUpKeyMask[currentScheme]);
     global.upKeyType[currentScheme] = getType(global.schemeUpKeyMask[currentScheme]);
     

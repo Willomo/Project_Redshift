@@ -31,6 +31,33 @@
         </arguments>
       </action>
     </event>
+    <event eventtype="2" enumb="9">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>for (q=0;q&lt;4;q++) {
+    if controllerWait[q] {
+        controllerWait[q] = false;
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="2" enumb="8">
       <action>
         <libid>1</libid>
@@ -150,7 +177,7 @@ for(currentPlayer=0;currentPlayer&lt;global.numPlayers;currentPlayer++) {
 
 if !joining {
     if joined {
-        for (controllerTest = 0;controllerTest&lt;4;controllerTest++) {
+        /*for (controllerTest = 0;controllerTest&lt;4;controllerTest++) {
             if gamepad_button_check(controllerTest,gp_start) {
                 controllerTestContinue = true;
                 controllerTestNum = 0;
@@ -165,6 +192,143 @@ if !joining {
                     }
                 }
                  
+            }
+        }*/
+        for (controllerTest = 0;controllerTest&lt;4;controllerTest++) {
+            if controllerTaken[controllerTest] and !controllerWait[controllerTest] {
+                if gamepad_axis_value(controllerTest,gp_axislv) &lt; -0.5 {
+                    if selected[playerController[controllerTest]] = 0 {
+                        selected[playerController[controllerTest]] = 4;
+                    } else {
+                        selected[playerController[controllerTest]]--;
+                    }
+                    controllerWait[controllerTest] = true;
+                    alarm[9] = 5;
+                } else if gamepad_axis_value(controllerTest,gp_axislv) &gt; 0.5 {
+                    if selected[playerController[controllerTest]] = 4 {
+                        selected[playerController[controllerTest]] = 0;
+                    } else {
+                        selected[playerController[controllerTest]]++;
+                    }
+                    controllerWait[controllerTest] = true;
+                    alarm[9] = 5;
+                } else if gamepad_axis_value(controllerTest,gp_axislh) &lt; -0.5 {
+                    
+                     switch selected[playerController[controllerTest]] {
+                        case 2:
+                            profileCount = profileOption[0,playerController[controllerTest]];
+                            while (profileTaken[profileCount]) {
+                                profileCount--;
+                                if profileCount &lt; 0 {
+                                    profileCount = 9;
+                                }
+                            }
+                            profileTaken[profileOption[0,playerController[controllerTest]]] = false;
+                            profileOption[0,playerController[controllerTest]] = profileCount;
+                            profileTaken[profileCount] = true;
+                            controllerWait[controllerTest] = true;
+                            alarm[9] = 5;
+                        break;
+                        case 3:
+                        
+                            controlSchemeCount = profileOption[1,playerController[controllerTest]];
+                            if controlSchemeCount != 10 {
+                                controlSchemeCount--;
+                                
+                                if controlSchemeCount &lt; 0 {
+                                    controlSchemeCount = 9;
+                                }
+                                while (global.schemeType[controlSchemeCount] != "Controller" and controlSchemeCount != profileOption[1,playerController[controllerTest]]) {
+                                    controlSchemeCount--;
+                                    if controlSchemeCount &lt; 0 {
+                                        controlSchemeCount = 9;
+                                    }
+                                }
+                            }
+                            
+                            profileOption[1,playerController[controllerTest]] = controlSchemeCount;
+                            
+                            controllerWait[controllerTest] = true;
+                            alarm[9] = 5;
+                        break;
+                    }
+                } else if gamepad_axis_value(controllerTest,gp_axislh) &gt; 0.5 {
+                switch selected[playerController[controllerTest]] {
+                        case 2:
+                            profileCount = profileOption[0,playerController[controllerTest]];
+                            while (profileTaken[profileCount]) {
+                                profileCount++;
+                                if profileCount &gt; 9 {
+                                    profileCount = 0;
+                                }
+                            }
+                            profileTaken[profileOption[0,playerController[controllerTest]]] = false;
+                            profileOption[0,playerController[controllerTest]] = profileCount;
+                            profileTaken[profileCount] = true;
+                            controllerWait[controllerTest] = true;
+                            alarm[9] = 5;
+                        break;
+                        case 3:
+                        
+                            controlSchemeCount = profileOption[1,playerController[controllerTest]];
+                            if controlSchemeCount != 10 {
+                                controlSchemeCount++;
+                                
+                                if controlSchemeCount &gt; 9 {
+                                    controlSchemeCount = 0;
+                                }
+                                while (global.schemeType[controlSchemeCount] != "Controller" and controlSchemeCount != profileOption[1,playerController[controllerTest]]) {
+                                    controlSchemeCount++;
+                                    if controlSchemeCount &gt; 9 {
+                                        controlSchemeCount = 0;
+                                    }
+                                }
+                            }
+                 
+                            profileOption[1,playerController[controllerTest]] = controlSchemeCount;
+                            
+                            controllerWait[controllerTest] = true;
+                            alarm[9] = 5;
+                        break;
+                   
+                    }
+                } else {
+                    controllerWait[controllerTest] = false;
+                }
+            } else {
+                if gamepad_button_check(controllerTest,gp_start) {
+                    controllerTestContinue = true;
+                    controllerTestNum = 0;
+                    while controllerTestContinue and controllerTestNum &lt; 4 {
+                        if inputMethod[controllerTestNum] != "Controller" and inputMethod[controllerTestNum] != "Keyboard" and !controllerTaken[controllerTest] {
+                            inputMethod[localPlayers] = "Controller";
+                            controllerInput[localPlayers] = controllerTest;
+                            playerController[controllerTest] = localPlayers;
+                            controllerTaken[controllerTest] = true;
+                            selected[localPlayers] = 0;
+                            profileCount = 0;
+                            while (profileTaken[profileCount]) {
+                                profileCount++;
+                            }
+                            profileOption[0,localPlayers] = profileCount;
+                            profileTaken[profileCount] = true;
+                            controlSchemeCount = 0;
+                            while (global.schemeType[controlSchemeCount] != "Controller" and controlSchemeCount &lt; 10) {
+                                controlSchemeCount++;
+                            }
+                            if controlSchemeCount = 10 {
+                                profileOption[1,localPlayers] = 11;
+                            } else {
+                                profileOption[1,localPlayers] = controlSchemeCount;
+                            }
+                        
+                            localPlayers++;
+                            controllerTestContinue = false;
+                        } else {
+                            controllerTestNum++;
+                        }
+                    }
+                }
             }
         }
         
@@ -430,6 +594,11 @@ for (z=0;z&lt;4;z++) {
     inputMethod[z] = "";
     controllerTaken[z] = false;
     ready[z] = false;
+    controllerWait[z] = false;
+}
+
+for (z=0;z&lt;10;z++) {
+    profileTaken[z] = false;
 }
 
 keyboardTaken = false;
@@ -519,22 +688,22 @@ view_hport[player] = global.playerPortHeight[player];
                         item = floor((view_yview[currentPlayer] + mouse_y - (keyboardPlayer * (view_hview[currentPlayer] / 4) )/* - titleHeight*/) / itemHeight);
                         
                         if item &gt;= array_length_1d(serverSecondary) {
-                            selectedItem = array_length_1d(serverSecondary) - 1;
+                            selected[t] = array_length_1d(serverSecondary) - 1;
                         } else if item &lt; 0 {
-                            selectedItem = 0;
+                            selected[t] = 0;
                         } else {
-                            selectedItem = item;
+                            selected[t] = item;
                         }   
                     } else {
-                        item = array_length_1d(serverOption);
+                        selected[t] = array_length_1d(serverOption);
                     }
-                } else {
-                    item = array_length_1d(serverOption);
+                } else if inputMethod[t] = "Keyboard"{
+                    selected[t] = array_length_1d(serverOption);
                 }
                 
                 draw_set_halign(fa_right);
                 for(s=0;s&lt;array_length_1d(profileLabel);s++) {
-                    if s = item and inputMethod[t] = "Keyboard" {
+                    if s = selected[t] {// and inputMethod[t] = "Keyboard" {
                         draw_set_color(c_selected);
                     } else {
                         draw_set_color(c_default);
@@ -544,32 +713,32 @@ view_hport[player] = global.playerPortHeight[player];
                 
                 
                 draw_set_halign(fa_center);
-                if item = 0 and inputMethod[t] = "Keyboard"{
+                if selected[t] = 0 { //and inputMethod[t] = "Keyboard"{
                     draw_set_color(c_selected);    
                 } else {
                     draw_set_color(c_default);
                 }
                 draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5,"Cancel");
                 draw_set_halign(fa_left);
-                if item = 1 and inputMethod[t] = "Keyboard"{
+                if selected[t] = 1 { // and inputMethod[t] = "Keyboard"{
                     draw_set_color(c_selected);    
                 } else {
                     draw_set_color(c_default);
                 }
                 draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile:"),inputMethod[t]);
-                if item = 2 and inputMethod[t] = "Keyboard"{
+                if selected[t] = 2 { //and inputMethod[t] = "Keyboard"{
                     draw_set_color(c_selected);    
                 } else {
                     draw_set_color(c_default);
                 }
                 draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile:") * 2,global.profileName[profileOption[0,t]]);
-                if item = 3 and inputMethod[t] = "Keyboard"{
+                if selected[t] = 3 { // and inputMethod[t] = "Keyboard"{
                     draw_set_color(c_selected);    
                 } else {
                     draw_set_color(c_default);
                 }
                 draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile:") * 3,global.schemeName[profileOption[1,t]]); 
-                if item = 4 and inputMethod[t] = "Keyboard"{
+                if selected[t] = 4 { // and inputMethod[t] = "Keyboard"{
                     draw_set_color(c_selected);    
                 } else {
                     draw_set_color(c_default);
