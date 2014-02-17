@@ -653,7 +653,7 @@ voice[2] = "Xander";
             draw_set_font(TitleFont);
             draw_set_color(c_default);
             draw_text(view_xview[currentPlayer] + view_wview[currentPlayer] / 2,view_yview[currentPlayer] + string_height(titleText[currentPlayer]) / 2,titleText[currentPlayer]);
-            titleDisplacement = string_height( titleText[currentPlayer]) + 5;
+            titleDisplacement = string_height( titleText[currentPlayer]) + 20;
             draw_set_font(MenuFont);
             for (menuDraw=0;menuDraw&lt;array_length_2d(menuItem,currentMenu[currentPlayer]);menuDraw++) {
                 itemDisplament = string_height(menuItem[currentMenu[currentPlayer],menuDraw]);
