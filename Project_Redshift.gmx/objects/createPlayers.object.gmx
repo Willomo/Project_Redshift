@@ -30,7 +30,7 @@ for (currentPlayer = 0;currentPlayer&lt;=global.numPlayers;currentPlayer++) {
 
     global.pause[currentPlayer] = true;
     
-    localPlayer[currentPlayer] = instance_create(128,128,objPlayer1);
+    localPlayer[currentPlayer] = instance_create(128,128,objPlayer);
     
     localPlayer[currentPlayer].player = currentPlayer;
     localPlayer[currentPlayer].createWait = false;

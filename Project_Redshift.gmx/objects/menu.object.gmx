@@ -94,12 +94,12 @@ for (currentPlayer = 0;currentPlayer&lt;=global.numPlayers;currentPlayer++) {
         if !nameEnabled and !controlRebind{
             if menuControls[currentPlayer] = "Mouse"{
                 draw_set_font(TitleFont);
-                titleDisplacement = string_height(titleText[currentPlayer]);
+                titleDisplacement = string_height(titleText[currentPlayer]) + 5;
                 draw_set_font(MenuFont);
                 itemDisplament = string_height(menuItem[currentMenu[currentPlayer],currentItem[currentMenu[currentPlayer],currentPlayer]]);
                 if (window_view_mouse_get_x(currentPlayer) &gt; view_xview[currentPlayer]) and (window_view_mouse_get_x(currentPlayer) &lt; view_xview[currentPlayer] + view_wview[currentPlayer]) and (mouse_y &gt; view_yview[currentPlayer]) and (mouse_y &lt; view_yview[currentPlayer] + view_hview[currentPlayer]) { 
                     
-                    item = floor((mouse_y - view_yview[currentPlayer] /*window_view_mouse_get_y(currentPlayer)*/ - titleDisplacement) / itemDisplament);
+                    item = round((mouse_y - view_yview[currentPlayer] /*window_view_mouse_get_y(currentPlayer)*/ - titleDisplacement) / itemDisplament);
                     
                     if item &gt;= array_length_2d(menuItem,currentMenu[currentPlayer]) {
                         currentItem[currentMenu[currentPlayer],currentPlayer] = array_length_2d(menuItem,currentMenu[currentPlayer]) - 1;
@@ -639,7 +639,7 @@ voice[2] = "Xander";
             draw_set_halign(fa_left);
             draw_set_font(Arial12);
             draw_set_color(c_default);
-            draw_text(view_xview[currentPlayer] + 5,view_yview[currentPlayer] + 5,global.version);
+            draw_text(view_xview[currentPlayer] + 5,view_yview[currentPlayer] + 10,global.version);
         }
         
             
@@ -648,23 +648,30 @@ voice[2] = "Xander";
             view_vborder[currentPlayer] = 5;*/
             
         if (view_current = currentPlayer) {
+            draw_set_valign(fa_center);
             draw_set_halign(fa_center);
             draw_set_font(TitleFont);
             draw_set_color(c_default);
-            draw_text(view_xview[currentPlayer] + view_wview[currentPlayer] / 2,view_yview[currentPlayer],titleText[currentPlayer]);
-            titleDisplacement = string_height(titleText[currentPlayer]);
+            draw_text(view_xview[currentPlayer] + view_wview[currentPlayer] / 2,view_yview[currentPlayer] + string_height(titleText[currentPlayer]) / 2,titleText[currentPlayer]);
+            titleDisplacement = string_height( titleText[currentPlayer]) + 5;
             draw_set_font(MenuFont);
             for (menuDraw=0;menuDraw&lt;array_length_2d(menuItem,currentMenu[currentPlayer]);menuDraw++) {
                 itemDisplament = string_height(menuItem[currentMenu[currentPlayer],menuDraw]);
+                
+                
+                
+                
+                drawItem = menuItem[currentMenu[currentPlayer],menuDraw];
+                drawItem = drawSubItem(drawItem);
+                draw_set_color(c_default)
                 if menuDraw = currentItem[currentMenu[currentPlayer],currentPlayer] {
-                    draw_set_color(c_selected);
+                    //draw_set_color(c_selected);
+                    draw_sprite(sprSelectLeft,0,view_xview[currentPlayer] + view_wview[currentPlayer] / 2 - string_width(drawItem) / 2 - 5,view_yview[currentPlayer] + titleDisplacement + itemDisplament*menuDraw);
+                    draw_sprite(sprSelectRight,0,view_xview[currentPlayer] + view_wview[currentPlayer] / 2 + string_width(drawItem) / 2,view_yview[currentPlayer] + titleDisplacement + itemDisplament*menuDraw);
+                    
                 } else {
                     draw_set_color(c_default);
                 }
-                drawItem = menuItem[currentMenu[currentPlayer],menuDraw];
-                
-                drawItem = drawSubItem(drawItem);
-                
                 draw_text(view_xview[currentPlayer] + view_wview[currentPlayer] / 2,view_yview[currentPlayer] + titleDisplacement + itemDisplament*menuDraw,drawItem);
                 draw_set_color(c_black);
             }

@@ -16,7 +16,7 @@ if nameEnabled or controlRebind {
 } else {
     switch menuItem[currentMenu[selectPlayer],currentItem[currentMenu[selectPlayer],selectPlayer]]  {
         case "Debug":
-             room_goto(rmShip);
+             room_goto(rmSpace);
         break;
         case "Quit Game":
             game_end();

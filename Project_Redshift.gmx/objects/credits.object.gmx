@@ -26,38 +26,61 @@
           <argument>
             <kind>1</kind>
             <string>initialiseVideo();
+draw_set_valign(fa_top);
+item = 0;
+creditsItem[item] = "Project Redshift";
+creditsFont[item] = Arial128;
+item++;
+creditsItem[item] = "Logan Smith";
+creditsFont[item] = Arial64;
+item++;
+creditsItem[item] = "Head Programmer";
+creditsFont[item] = Arial32;
+item++;
+creditsItem[item] = "William Hayward";
+creditsFont[item] = Arial64;
+item++;
+creditsItem[item] = "Lead Designer";
+creditsFont[item] = Arial32;
+item++;
+creditsItem[item] = "Programmer";
+creditsFont[item] = Arial32;
+item++;
+creditsItem[item] = "Kenney NL";
+creditsFont[item] = Arial64;
+item++;
+creditsItem[item] = "Art Assets";
+creditsFont[item] = Arial32;
+item++;
+creditsItem[item] = "Rye Terrell";
+creditsFont[item] = Arial64;
+item++;
+creditsItem[item] = "Background Art";
+creditsFont[item] = Arial32;
+item++;
+creditsItem[item] = "Christian Mossuto";
+creditsFont[item] = Arial64;
+item++;
+creditsItem[item] = "Music";
+creditsFont[item] = Arial32;
+item++;
+creditsItem[item] = "Boring (Loop)";
+creditsFont[item] = Arial24;
+item++;
+creditsItem[item] = "Kevin MacLeod";
+creditsFont[item] = Arial64;
+item++;
+creditsItem[item] = "Music";
+creditsFont[item] = Arial32;
+item++;
+creditsItem[item] = "The Complex";
+creditsFont[item] = Arial24;
+item++;
+creditsItem[item] = "Hitman";
+creditsFont[item] = Arial24;
+item++;
 
-creditsItem[0] = "Project Redshift";
-creditsItem[1] = "Logan Smith";
-creditsItem[2] = "Head Programmer";
-creditsItem[3] = "William Hayward";
-creditsItem[4] = "Programmer";
-creditsItem[5] = "Lead Designer";
-creditsItem[6] = "Rye Terrell";
-creditsItem[7] = "Background Art";
-creditsItem[8] = "Christian Mossuto";
-creditsItem[9] = "Music";
-creditsItem[10] = "Boring (Loop)";
-creditsItem[11] = "Kevin MacLeod";
-creditsItem[12] = "Music";
-creditsItem[13] = "The Complex";
-creditsItem[14] = "Hitman";
 
-creditsFont[0] = Arial128;
-creditsFont[1] = Arial64;
-creditsFont[2] = Arial32;
-creditsFont[3] = Arial64;
-creditsFont[4] = Arial32;
-creditsFont[5] = Arial32;
-creditsFont[6] = Arial64;
-creditsFont[7] = Arial32;
-creditsFont[8] = Arial64;
-creditsFont[9] = Arial32;
-creditsFont[10] = Arial24;
-creditsFont[11] = Arial64;
-creditsFont[12] = Arial32;
-creditsFont[13] = Arial24;
-creditsFont[14] = Arial24;
 
 
 draw_set_font(creditsFont[0]);
@@ -151,7 +174,8 @@ view_hport[player] = global.playerPortHeight[player];
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_background(bkgMainMenu,view_xview[0],view_yview[0])
+            <string>
+draw_background(bkgMainMenu,view_xview[0],view_yview[0])
 for (item=0;item&lt;array_length_1d(creditsItem);item++) {
     draw_set_halign(fa_center);
     draw_set_color(c_default);

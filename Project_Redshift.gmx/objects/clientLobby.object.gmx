@@ -532,7 +532,10 @@ if !joining {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>serverStarted = false;
+            <string>
+draw_set_valign(fa_top);
+
+serverStarted = false;
 
 title = "Join Server";
 
@@ -586,6 +589,8 @@ profileLabel[1] = "Input:";
 profileLabel[2] = "Profile:";
 profileLabel[3] = "Control Scheme:";
 profileLabel[4] = "";
+
+profileSecondary[0] = "Cancel";
 
 for (z=0;z&lt;4;z++) {
     profileOption[0,z] = 0;
@@ -660,7 +665,8 @@ view_hport[player] = global.playerPortHeight[player];
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>for(currentPlayer=0;currentPlayer&lt;=global.numPlayers;currentPlayer++) {
+            <string>
+for(currentPlayer=0;currentPlayer&lt;=global.numPlayers;currentPlayer++) {
     
     //drawView(currentPlayer);
     
@@ -683,6 +689,7 @@ view_hport[player] = global.playerPortHeight[player];
         draw_set_font(MenuFont);
         for (t=0;t&lt;4;t++) {
             if t &lt; localPlayers {
+                draw_set_valign(fa_center);
                 if !ready[t] and inputMethod[t] = "Keyboard" {
                     if mouse_y &gt; keyboardPlayer * (view_hview[currentPlayer] / 4) and mouse_y &lt; (keyboardPlayer + 1) * (view_hview[currentPlayer] / 4) and mouse_x &lt; view_wview[currentPlayer] / 1.5{
                         item = floor((view_yview[currentPlayer] + mouse_y - (keyboardPlayer * (view_hview[currentPlayer] / 4) )/* - titleHeight*/) / itemHeight);
@@ -700,7 +707,39 @@ view_hport[player] = global.playerPortHeight[player];
                 } else if inputMethod[t] = "Keyboard"{
                     selected[t] = array_length_1d(serverOption);
                 }
+                if inputMethod[t] = "Controller" {
+                    profileSecondary[1] = inputMethod[t] + " " + string(controllerInput[t] + 1);
+                } else {
+                    profileSecondary[1] = "Keyboard and Mouse";
+                }
+                profileSecondary[2] = global.profileName[profileOption[0,t]];
+                profileSecondary[3] = global.schemeName[profileOption[1,t]];
+                if t = 0 {
+                   profileSecondary[4] = "Start Game";
+                } else {
+                   profileSecondary[4] = "Ready";
+                }
                 
+                for(s=0;s&lt;array_length_1d(profileLabel);s++) {
+                    draw_set_halign(fa_right);
+                    if s = selected[t] {//and inputMethod[t] = "Keyboard" {
+                        if profileLabel[s] = "" {
+                            draw_sprite(sprSelectLeft,0,view_xview[currentPlayer] + (view_wview[currentPlayer] / 3) - string_width(profileSecondary[s]) / 2 - 5,view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile") * s + string_height("Profile") / 2);
+                            draw_sprite(sprSelectRight,0,view_xview[currentPlayer] + (view_wview[currentPlayer] / 3) + string_width(profileSecondary[s]) / 2 + 5,view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile") * s + string_height("Profile") / 2);
+                        } else {
+                            draw_sprite(sprSelectLeft,0,view_xview[currentPlayer] + (view_wview[currentPlayer] / 3) - string_width(profileLabel[s]) - 5,view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile") * s + string_height("Profile") / 2);
+                            draw_sprite(sprSelectRight,0,view_xview[currentPlayer] + (view_wview[currentPlayer] / 3) + string_width(profileSecondary[s]) + 5,view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile") * s + string_height("Profile") / 2);
+                        }
+                    }
+                    
+                    draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile") * s + string_height("Profile") / 2,profileLabel[s]);
+                    draw_set_halign(fa_left);
+                    if profileLabel[s] = "" {
+                        draw_set_halign(fa_center);
+                    }
+                    draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile") * s + string_height("Profile") / 2,profileSecondary[s]);
+                }
+                /*
                 draw_set_halign(fa_right);
                 for(s=0;s&lt;array_length_1d(profileLabel);s++) {
                     if s = selected[t] {// and inputMethod[t] = "Keyboard" {
@@ -747,17 +786,19 @@ view_hport[player] = global.playerPortHeight[player];
                 
                 readyText = "Ready";
                 
-                draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile:") * 4,readyText);     
+                draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 5 + string_height("Profile:") * 4,readyText);     */
             } else {
+                
+                draw_set_valign(fa_top);
                 draw_set_color(c_default);
                 draw_set_halign(fa_center);
                 draw_set_font(TitleFont);
-                joinText = "Press Start or Space to join";
+                joinText = "Press Start or#Space to join";
                 draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 3),view_yview[currentPlayer] + (view_hview[currentPlayer] / 4) * t + 50,joinText);     
             }
         }
         
-        
+        draw_set_valign(fa_top);
         draw_set_halign(fa_center);
         draw_set_font(shipNameFont);
         draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 6) * 5,view_yview[currentPlayer] + 5,spaceshipName);

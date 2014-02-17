@@ -26,25 +26,25 @@ resolution = 0;
 switch autoRatio {
     case "16:9":
         
-        resolutionList[0,0] = "1920x1080";
-        resolutionList[0,1] = "1600x900";
-        resolutionList[0,2] = "1365x768";
-        resolutionList[0,3] = "1280x720";
-        resolutionList[0,4] = "852x480";
+        resolutionList[0,0] = "1920*1080";
+        resolutionList[0,1] = "1600*900";
+        resolutionList[0,2] = "1365*768";
+        resolutionList[0,3] = "1280*720";
+        resolutionList[0,4] = "852*480";
         
         
-        resolutionList[1,0] = "1728x1080";
-        resolutionList[1,1] = "1680x1050";
-        resolutionList[1,2] = "1440x900";
-        resolutionList[1,3] = "1280x800";
+        resolutionList[1,0] = "1728*1080";
+        resolutionList[1,1] = "1680*1050";
+        resolutionList[1,2] = "1440*900";
+        resolutionList[1,3] = "1280*800";
         
-        resolutionList[2,0] = "1440x1080";
-        resolutionList[2,1] = "1400x1050";
-        resolutionList[2,2] = "1280x960";
-        resolutionList[2,3] = "1152x864";
-        resolutionList[2,4] = "1024x768";
-        resolutionList[2,5] = "800x600";
-        resolutionList[2,6] = "640x480";
+        resolutionList[2,0] = "1440*1080";
+        resolutionList[2,1] = "1400*1050";
+        resolutionList[2,2] = "1280*960";
+        resolutionList[2,3] = "1152*864";
+        resolutionList[2,4] = "1024*768";
+        resolutionList[2,5] = "800*600";
+        resolutionList[2,6] = "640*480";
         
         aspectList[0] = "16:9";
         aspectList[1] = "16:10";
@@ -52,24 +52,24 @@ switch autoRatio {
     break;
     case "16:10":
         
-        resolutionList[0,0] = "1728x1080";
-        resolutionList[0,1] = "1680x1050";
-        resolutionList[0,2] = "1440x900";
-        resolutionList[0,3] = "1280x800";
+        resolutionList[0,0] = "1728*1080";
+        resolutionList[0,1] = "1680*1050";
+        resolutionList[0,2] = "1440*900";
+        resolutionList[0,3] = "1280*800";
         
-        resolutionList[1,1] = "1920x1080";
-        resolutionList[1,2] = "1600x900";
-        resolutionList[1,3] = "1365x768";
-        resolutionList[1,4] = "1280x720";
-        resolutionList[1,5] = "852x480";
+        resolutionList[1,1] = "1920*1080";
+        resolutionList[1,2] = "1600*900";
+        resolutionList[1,3] = "1365*768";
+        resolutionList[1,4] = "1280*720";
+        resolutionList[1,5] = "852*480";
         
-        resolutionList[2,0] = "1440x1080";
-        resolutionList[2,1] = "1400x1050";
-        resolutionList[2,2] = "1280x960";
-        resolutionList[2,3] = "1152x864";
-        resolutionList[2,4] = "1024x768";
-        resolutionList[2,5] = "800x600";
-        resolutionList[2,6] = "640x480";
+        resolutionList[2,0] = "1440*1080";
+        resolutionList[2,1] = "1400*1050";
+        resolutionList[2,2] = "1280*960";
+        resolutionList[2,3] = "1152*864";
+        resolutionList[2,4] = "1024*768";
+        resolutionList[2,5] = "800*600";
+        resolutionList[2,6] = "640*480";
         
         aspectList[0] = "16:10";
         aspectList[1] = "4:3";
@@ -77,24 +77,24 @@ switch autoRatio {
     break;
     case "4:3":
 
-        resolutionList[0,0] = "1440x1080";
-        resolutionList[0,1] = "1400x1050";
-        resolutionList[0,2] = "1280x960";
-        resolutionList[0,3] = "1152x864";
-        resolutionList[0,4] = "1024x768";
-        resolutionList[0,5] = "800x600";
-        resolutionList[0,6] = "640x480";
+        resolutionList[0,0] = "1440*1080";
+        resolutionList[0,1] = "1400*1050";
+        resolutionList[0,2] = "1280*960";
+        resolutionList[0,3] = "1152*864";
+        resolutionList[0,4] = "1024*768";
+        resolutionList[0,5] = "800*600";
+        resolutionList[0,6] = "640*480";
         
-        resolutionList[1,1] = "1920x1080";
-        resolutionList[1,2] = "1600x900";
-        resolutionList[1,3] = "1365x768";
-        resolutionList[1,4] = "1280x720";
-        resolutionList[1,5] = "852x480";
+        resolutionList[1,1] = "1920*1080";
+        resolutionList[1,2] = "1600*900";
+        resolutionList[1,3] = "1365*768";
+        resolutionList[1,4] = "1280*720";
+        resolutionList[1,5] = "852*480";
         
-        resolutionList[2,1] = "1728x1080";
-        resolutionList[2,2] = "1680x1050";
-        resolutionList[2,3] = "1440x900";
-        resolutionList[2,4] = "1280x800";
+        resolutionList[2,1] = "1728*1080";
+        resolutionList[2,2] = "1680*1050";
+        resolutionList[2,3] = "1440*900";
+        resolutionList[2,4] = "1280*800";
         
         aspectList[0] = "4:3";
         aspectList[1] = "16:9";
@@ -103,26 +103,26 @@ switch autoRatio {
     default:
         
         
-        resolutionList[0,0] = "Auto(" + string(display_get_width()) + "x" + string(display_get_height()) + ")";
+        resolutionList[0,0] = "Auto(" + string(display_get_width()) + "*" + string(display_get_height()) + ")";
         
-        resolutionList[1,1] = "1920x1080";
-        resolutionList[1,2] = "1600x900";
-        resolutionList[1,3] = "1365x768";
-        resolutionList[1,4] = "1280x720";
-        resolutionList[1,5] = "852x480";
+        resolutionList[1,1] = "1920*1080";
+        resolutionList[1,2] = "1600*900";
+        resolutionList[1,3] = "1365*768";
+        resolutionList[1,4] = "1280*720";
+        resolutionList[1,5] = "852*480";
         
-        resolutionList[2,0] = "1728x1080";
-        resolutionList[2,1] = "1680x1050";
-        resolutionList[2,2] = "1440x900";
-        resolutionList[2,3] = "1280x800";
+        resolutionList[2,0] = "1728*1080";
+        resolutionList[2,1] = "1680*1050";
+        resolutionList[2,2] = "1440*900";
+        resolutionList[2,3] = "1280*800";
         
-        resolutionList[3,0] = "1440x1080";
-        resolutionList[3,1] = "1400x1050";
-        resolutionList[3,2] = "1280x960";
-        resolutionList[3,3] = "1152x864";
-        resolutionList[3,4] = "1024x768";
-        resolutionList[3,5] = "800x600";
-        resolutionList[3,6] = "640x480";
+        resolutionList[3,0] = "1440*1080";
+        resolutionList[3,1] = "1400*1050";
+        resolutionList[3,2] = "1280*960";
+        resolutionList[3,3] = "1152*864";
+        resolutionList[3,4] = "1024*768";
+        resolutionList[3,5] = "800*600";
+        resolutionList[3,6] = "640*480";
         
         aspectList[0] = "Auto(" + autoRatio + ")";
         aspectList[1] = "16:9";
@@ -138,20 +138,20 @@ global.workingSpaceHeight = 1080;
 switch global.aspectRatio {
     case "16:9":
         global.workingSpaceWidth = 1920;
-        switch string(global.resWidth) + "x" + string(global.resHeight) {
-            case "1920x1080":
+        switch string(global.resWidth) + "*" + string(global.resHeight) {
+            case "1920*1080":
                 autoResolution = 0;
             break;
-            case "1600x900":
+            case "1600*900":
                 autoResolution = 1;
             break;
-            case "1365x768":
+            case "1365*768":
                 autoResolution = 2;
             break;
-            case "1280x720":
+            case "1280*720":
                 autoResolution = 3;
             break;
-            case "852x480":
+            case "852*480":
                 autoResolution = 4;
             break;
             default:
@@ -177,17 +177,17 @@ switch global.aspectRatio {
     case "16:10":
         global.workingSpaceWidth = 1728;
         
-        switch string(global.resWidth) + "x" + string(global.resHeight) {
-            case "1728x1080":
+        switch string(global.resWidth) + "*" + string(global.resHeight) {
+            case "1728*1080":
                 autoResolution = 0;
             break;
-            case "1680x1050":
+            case "1680*1050":
                 autoResolution = 1;
             break;
-            case "1440x900":
+            case "1440*900":
                 autoResolution = 2;
             break;
-            case "1280x800":
+            case "1280*800":
                 autoResolution = 3;
             break;
             default:
@@ -213,26 +213,26 @@ switch global.aspectRatio {
     case "4:3":
         global.workingSpaceWidth = 1440;
         
-        switch string(global.resWidth) + "x" + string(global.resHeight) {
-            case "1440x1080":
+        switch string(global.resWidth) + "*" + string(global.resHeight) {
+            case "1440*1080":
                 autoResolution = 0;
             break;
-            case "1400x1050":
+            case "1400*1050":
                 autoResolution = 1;
             break;
-            case "1280x960":
+            case "1280*960":
                 autoResolution = 2;
             break;
-            case "1152x864":
+            case "1152*864":
                 autoResolution = 3;
             break;
-            case "1024x768":
+            case "1024*768":
                 autoResolution = 4;
             break;
-            case "800x600":
+            case "800*600":
                 autoResolution = 5;
             break;
-            case "640x480":
+            case "640*480":
                 autoResolution = 6;
             break;
             default:
