@@ -1,0 +1,1 @@
+///determineNetworkPurpose(code)
