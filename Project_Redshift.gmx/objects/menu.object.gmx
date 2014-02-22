@@ -666,8 +666,8 @@ voice[2] = "Xander";
                 draw_set_color(c_default)
                 if menuDraw = currentItem[currentMenu[currentPlayer],currentPlayer] {
                     //draw_set_color(c_selected);
-                    draw_sprite(sprSelectLeft,0,view_xview[currentPlayer] + view_wview[currentPlayer] / 2 - string_width(drawItem) / 2 - 5,view_yview[currentPlayer] + titleDisplacement + itemDisplament*menuDraw);
-                    draw_sprite(sprSelectRight,0,view_xview[currentPlayer] + view_wview[currentPlayer] / 2 + string_width(drawItem) / 2,view_yview[currentPlayer] + titleDisplacement + itemDisplament*menuDraw);
+                    draw_sprite(sprSelectLeft,0,view_xview[currentPlayer] + view_wview[currentPlayer] / 2 - string_width(drawItem) / 2 - 5 - cos(radtodeg(current_time)),view_yview[currentPlayer] + titleDisplacement + itemDisplament*menuDraw);
+                    draw_sprite(sprSelectRight,0,view_xview[currentPlayer] + view_wview[currentPlayer] / 2 + string_width(drawItem) / 2 + cos(radtodeg(current_time)),view_yview[currentPlayer] + titleDisplacement + itemDisplament*menuDraw);
                     
                 } else {
                     draw_set_color(c_default);

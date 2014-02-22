@@ -101,6 +101,7 @@
     <script>scripts\script29.gml</script>
     <script>scripts\playMusic.gml</script>
     <script>scripts\addPlayer.gml</script>
+    <script>scripts\get_position_in_set.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\Arial12</font>

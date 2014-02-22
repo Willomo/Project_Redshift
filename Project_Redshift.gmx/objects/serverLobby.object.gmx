@@ -267,7 +267,9 @@ if serverStarted {
                         } else {
                             profileOption[1,localPlayers] = controlSchemeCount;
                         }
-                    
+                        
+                        global.networkPlayers++;
+                        addPlayer(/*global.networkPlayers*/localPlayers,global.profileName[profileOption[0,localPlayers]]);
                         localPlayers++;
                         controllerTestContinue = false;
                     } else {
@@ -304,6 +306,10 @@ if serverStarted {
                 }
                 
                 
+                
+                
+                global.networkPlayers++;
+                addPlayer(/*global.networkPlayers*/localPlayers,global.profileName[profileOption[0,localPlayers]]);
                 localPlayers++;
                 keyboardTestContinue = false;
                 keyboardTaken = true;
@@ -598,9 +604,9 @@ if shipNameType or passwordType or portType or sizeType {
             break;
             case "":
                 global.maxCrew = real(serverSecondary[3]);
-                userDraw[0] = "0/" + string(global.maxCrew);
-                for (i=1;i&lt;=global.maxCrew;i++) {
-                    userDraw[i] = "";
+                global.networkPlayers = 0;
+                for (i=0;i&lt;global.maxCrew;i++) {
+                    global.nameList[i] = "&lt;Empty Slot&gt;";
                 }
                 instance_create(0,0,server);
                 serverStarted = true;
@@ -643,6 +649,7 @@ if shipNameType or passwordType or portType or sizeType {
             <kind>1</kind>
             <string>serverStarted = false;
 
+global.currentCrew = 0;
 
 draw_set_valign(fa_top);
 
@@ -919,8 +926,9 @@ view_hport[player] = global.playerPortHeight[player];
         draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 6) * 5,view_yview[currentPlayer] + 5,spaceshipName);
         shipNameDisplacement = string_height(spaceshipName);
         draw_set_font(Arial24);
-        for (drawUser=0;drawUser&lt;=global.maxCrew;drawUser++) {
-            draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 6) * 5,view_yview[currentPlayer] + 10 + shipNameDisplacement + string_height(userDraw[drawUser]) * drawUser,userDraw[drawUser]);
+        draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 6) * 5,view_yview[currentPlayer] + 10 + shipNameDisplacement,string(global.currentCrew) + "/" + string(global.maxCrew));
+        for (drawUser=0;drawUser&lt;global.maxCrew;drawUser++) {
+            draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 6) * 5,view_yview[currentPlayer] + 10 + shipNameDisplacement + string_height(global.nameList[drawUser])+ string_height(global.nameList[drawUser]) * drawUser,global.nameList[drawUser]);
         }
         
     } else {
