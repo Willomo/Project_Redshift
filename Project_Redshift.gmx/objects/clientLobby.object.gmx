@@ -321,6 +321,12 @@ if !joining {
                             } else {
                                 profileOption[1,localPlayers] = controlSchemeCount;
                             }
+                            
+                            playerNameSend = buffer_create(256,buffer_grow,1);
+                            buffer_seek(playerNameSend,buffer_seek_start,0);
+                            buffer_write(playerNameSend,buffer_string,string(global.networkPlayerID) + "|2|" + global.profileName[profileOption[0,localPlayers]]);
+                    
+                            network_send_packet(client.clientSock,playerNameSend,buffer_tell(playerNameSend));
                         
                             localPlayers++;
                             controllerTestContinue = false;
@@ -342,6 +348,8 @@ if !joining {
                     localPlayers++;
                     keyboardTestContinue = false;
                     keyboardTaken = true;
+                    
+                    
                 } else {
                     keyboardTestNum++;
                 }
@@ -532,7 +540,7 @@ if !joining {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>
+            <string>global.currentCrew = 0;
 draw_set_valign(fa_top);
 
 serverStarted = false;
@@ -804,8 +812,12 @@ for(currentPlayer=0;currentPlayer&lt;=global.numPlayers;currentPlayer++) {
         draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 6) * 5,view_yview[currentPlayer] + 5,spaceshipName);
         shipNameDisplacement = string_height(spaceshipName);
         draw_set_font(Arial24);
-        for (drawUser=0;drawUser&lt;=global.maxCrew;drawUser++) {
+        /*for (drawUser=0;drawUser&lt;=global.maxCrew;drawUser++) {
             draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 6) * 5,view_yview[currentPlayer] + 10 + shipNameDisplacement + string_height(userDraw[drawUser]) * drawUser,userDraw[drawUser]);
+        }*/
+        draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 6) * 5,view_yview[currentPlayer] + 10 + shipNameDisplacement,string(global.currentCrew) + "/" + string(global.maxCrew));
+        for (drawUser=0;drawUser&lt;global.maxCrew;drawUser++) {
+            draw_text(view_xview[currentPlayer] + (view_wview[currentPlayer] / 6) * 5,view_yview[currentPlayer] + 10 + shipNameDisplacement + string_height(global.nameList[drawUser])+ string_height(global.nameList[drawUser]) * drawUser,global.nameList[drawUser]);
         }
         
     } else {

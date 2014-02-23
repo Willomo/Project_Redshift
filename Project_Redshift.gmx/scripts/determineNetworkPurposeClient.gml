@@ -40,6 +40,9 @@ if input != "" {
                     for (i=1;i<=global.maxCrew;i++) {
                         clientLobby.userDraw[i] = "";
                     }
+                    for (i=0;i<global.maxCrew;i++) {
+                        global.nameList[i] = "<Empty Slot>";
+                    }
                     
                     pingSend = string(global.networkPlayerID) + "|0|" + string(current_time) + "|0";
                     pingBuff = buffer_create(256,buffer_grow,1);
@@ -70,6 +73,9 @@ if input != "" {
                     instance_destroy();
                 break;
             }
-       break;
+        break;
+        case 2:
+            
+        break;
     }
 }
