@@ -29,10 +29,14 @@ if nameEnabled or controlRebind {
             global.pause[selectPlayer] = false;
         break;
         case "Start Server":
-            room_goto(rmServerLobby);
+            global.host = true;
+            room_goto(rmLobby);
+            //room_goto(rmServerLobby);
         break;
         case "Join Server":
-            room_goto(rmClientLobby);
+            global.host = false;
+            room_goto(rmLobby);
+            //room_goto(rmClientLobby);
         break;
         case "Profiles":
             currentMenu[selectPlayer] = profiles;

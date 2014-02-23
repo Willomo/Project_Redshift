@@ -54,7 +54,7 @@
     <background>background\bkgSpace2</background>
     <background>background\bkgSpace3</background>
     <background>background\bkgSpace4</background>
-    <background>background\bkgPurple</background>
+    <background>background\bkgStars</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
@@ -120,10 +120,11 @@
     <objects name="Menu">
       <object>objects\menu</object>
       <object>objects\credits</object>
-      <object>objects\serverLobby</object>
-      <object>objects\clientLobby</object>
-      <object>objects\server</object>
-      <object>objects\client</object>
+      <object>objects\lobby</object>
+      <object>objects\serverLobbyOld</object>
+      <object>objects\clientLobbyOld</object>
+      <object>objects\serverOld</object>
+      <object>objects\clientOld</object>
     </objects>
     <object>objects\objDoor</object>
     <object>objects\objDoorParent</object>
@@ -134,13 +135,13 @@
     <object>objects\createPlayers</object>
     <object>objects\objShip</object>
     <object>objects\objStation</object>
-    <object>objects\object15</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rmMain</room>
     <room>rooms\rmCredits</room>
-    <room>rooms\rmServerLobby</room>
-    <room>rooms\rmClientLobby</room>
+    <room>rooms\rmLobby</room>
+    <room>rooms\rmServerLobbyOld</room>
+    <room>rooms\rmClientLobbyOld</room>
     <room>rooms\rmShip</room>
     <room>rooms\rmSpace</room>
   </rooms>
