@@ -28,6 +28,40 @@
             <string>draw_set_font(MenuFont);
 if (mouse_x &lt; string_width("Back") + 5) and (mouse_y &lt; string_height("Back") + 5) {
     room_goto(rmMain);
+} else {
+    switch lobbyOption[selectedItem] {
+        case "Ship Name:":
+        
+        break;
+        case "Password:":
+            if global.host {
+            
+            } else {
+            
+            }    
+        break;
+        case "Port:":
+            if global.host {
+            
+            } else {
+            
+            }
+        break;
+        case "Maximum Crew Size:":
+        
+        break;
+        case "IP:":
+        
+        break;
+        case "":
+            lobbyActivated = true;
+            if global.host {
+            
+            } else {
+            
+            }
+        break;
+    }
 }
 </string>
           </argument>
@@ -51,10 +85,13 @@ if (mouse_x &lt; string_width("Back") + 5) and (mouse_y &lt; string_height("Back
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>
-lobbyActivated = false;
-
-
+            <string>lobbyActivated = false;
+keyboardTaken = false;
+endString = "";
+endCursor = "";
+selectedItem = 0;
+type = false;
+draw_set_valign(fa_center);
 randomize();
 switch irandom(4) {
     case 0:
@@ -74,19 +111,49 @@ switch irandom(4) {
     break;
 }
 
-player = 0;
+view_xview[0] = global.playerViewX[0];
+view_yview[0] = global.playerViewY[0];
 
-view_xview[player] = global.playerViewX[player];
-view_yview[player] = global.playerViewY[player];
+view_wview[0] = global.playerViewWidth[0];
+view_hview[0] = global.playerViewHeight[0];
 
-view_wview[player] = global.playerViewWidth[player];
-view_hview[player] = global.playerViewHeight[player];
+view_xport[0] = global.playerPortX[0];
+view_yport[0] = global.playerPortY[0];
 
-view_xport[player] = global.playerPortX[player];
-view_yport[player] = global.playerPortY[player];
+view_wport[0] = global.playerPortWidth[0];
+view_hport[0] = global.playerPortHeight[0];
 
-view_wport[player] = global.playerPortWidth[player];
-view_hport[player] = global.playerPortHeight[player];
+for (playerCount=0;playerCount&lt;4;playerCount++) {
+    playedJoined[playerCount] = false;
+}
+
+if global.host {
+    lobbyTitle = "Host Server";
+    lobbyOption[0] = "Ship Name:";
+    lobbyOption[1] = "Password:";
+    lobbyOption[2] = "Port:";
+    lobbyOption[3] = "Maximum Crew Size:";
+    lobbyOption[4] = "";
+    
+    lobbySecondary[0] = "Spaceship";
+    lobbySecondary[1] = "";
+    lobbySecondary[2] = "2014";
+    lobbySecondary[3] = "6";
+    lobbySecondary[4] = "Start Server";
+} else {
+    lobbyTitle = "Join Server";
+    lobbyOption[0] = "IP:";
+    lobbyOption[1] = "Password:";
+    lobbyOption[2] = "Port:";
+    lobbyOption[3] = "";
+    //lobbyOption[4] = "";
+    
+    lobbySecondary[0] = "127.0.0.1";
+    lobbySecondary[1] = "";
+    lobbySecondary[2] = "2014";
+    lobbySecondary[3] = "Join Server";
+    //lobbySecondary[4] = "";
+}
 </string>
           </argument>
         </arguments>
@@ -117,10 +184,74 @@ view_hport[player] = global.playerPortHeight[player];
     draw_set_valign(fa_top);
     draw_text(view_xview[currentPlayer] + 5,view_yview[currentPlayer] + 5,"Back");
     
+    draw_set_valign(fa_center);
+    
     if lobbyActivated {
-    
+        draw_background(bkgStars,view_wview[0] / 3 * 2,0);
+        draw_line_width_color(view_wview[0] / 3 * 2,0,view_wview[0] / 3 * 2,view_hview[0],5,c_white,c_white);
+        for (playerCount=0;playerCount&lt;4;playerCount++) {
+            draw_line_width_color(view_xview[0],view_hview[0] / 4 * playerCount,view_wview[0] / 3 * 2,view_hview[0] / 4 * playerCount,5,c_white,c_white);
+            if playedJoined[playerCount] {
+            
+            } else {
+                draw_set_font(TitleFont);
+                draw_set_halign(fa_center);
+                if keyboardTaken {
+                    draw_text(view_wview[0] / 3,view_hview[0] / 4 * playerCount + view_hview[0] / 8,"Press Start#to Join");
+                } else {
+                    draw_text(view_wview[0] / 3,view_hview[0] / 4 * playerCount + view_hview[0] / 8,"Press Start or#Space to Join");
+                }
+            }
+        }
     } else {
-    
+    draw_set_color(c_default);
+        draw_set_font(TitleFont);
+        draw_set_halign(fa_center);
+        //draw_set_valign(fa_top);
+        draw_text(view_xview[currentPlayer] + view_wview[currentPlayer] / 2,view_yview[currentPlayer] + string_height(lobbyTitle) / 2,lobbyTitle)
+        titleHeight = string_height(lobbyTitle) + 20;
+        draw_set_font(MenuFont);
+        
+        itemHeight = string_height("String Height");
+        
+        if !type and (window_view_mouse_get_x(currentPlayer) &gt; view_xview[currentPlayer]) and (window_view_mouse_get_x(currentPlayer) &lt; view_xview[currentPlayer] + view_wview[currentPlayer]) and (window_view_mouse_get_y(currentPlayer) &gt; view_yview[currentPlayer]) and (window_view_mouse_get_y(currentPlayer) &lt; view_yview[currentPlayer] + view_hview[currentPlayer]) { 
+                        
+            item = round((view_yview[currentPlayer] + window_view_mouse_get_y(currentPlayer) - titleHeight) / itemHeight);
+            
+            if item &gt;= array_length_1d(lobbySecondary) {
+                selectedItem = array_length_1d(lobbySecondary) - 1;
+            } else if item &lt; 0 {
+                selectedItem = 0;
+            } else {
+                selectedItem = item;
+            }
+        }
+        
+        
+        
+        
+        for(drawCount=0;drawCount&lt;array_length_1d(lobbyOption);drawCount++) {
+            
+            draw_set_halign(fa_right);
+            draw_text(view_xview[currentPlayer] + view_wview[currentPlayer] / 2,view_yview[currentPlayer] + titleHeight + drawCount * itemHeight,lobbyOption[drawCount]);
+            if lobbyOption[drawCount] = "" {
+                draw_set_halign(fa_center);   
+                if drawCount = selectedItem {
+                    draw_sprite(sprSelectLeft,0,view_xview[currentPlayer] + view_wview[currentPlayer] / 2 - string_width(lobbySecondary[selectedItem]) / 2 - 8 - cos(0.25 * degtorad(current_time)),view_yview[currentPlayer] + titleHeight + itemHeight*drawCount);
+                    draw_sprite(sprSelectRight,0,view_xview[currentPlayer] + view_wview[currentPlayer] / 2 + string_width(lobbySecondary[selectedItem]) / 2 + cos(0.25 * degtorad(current_time)),view_yview[currentPlayer] + titleHeight + itemHeight*drawCount);
+                } 
+            } else {
+                draw_set_halign(fa_left);
+                if drawCount = selectedItem {
+                    draw_sprite(sprSelectLeft,0,view_xview[currentPlayer] + view_wview[currentPlayer] / 2 - string_width(lobbyOption[selectedItem]) - 8 - cos(0.25 * degtorad(current_time)),view_yview[currentPlayer] + titleHeight + itemHeight*drawCount);
+                    draw_sprite(sprSelectRight,0,view_xview[currentPlayer] + view_wview[currentPlayer] / 2 + string_width(lobbySecondary[selectedItem]) + cos(0.25 * degtorad(current_time)),view_yview[currentPlayer] + titleHeight + itemHeight*drawCount);
+                }
+                endString = endCursor;
+            }
+            draw_text(view_xview[currentPlayer] + view_wview[currentPlayer] / 2,view_yview[currentPlayer] + titleHeight + drawCount * itemHeight,lobbySecondary[drawCount] + endString);
+            
+        }
+        draw_set_halign(fa_left);
     }
 }
 </string>

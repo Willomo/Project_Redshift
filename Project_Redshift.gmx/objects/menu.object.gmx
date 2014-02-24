@@ -94,7 +94,7 @@ for (currentPlayer = 0;currentPlayer&lt;=global.numPlayers;currentPlayer++) {
         if !nameEnabled and !controlRebind{
             if menuControls[currentPlayer] = "Mouse"{
                 draw_set_font(TitleFont);
-                titleDisplacement = string_height(titleText[currentPlayer]) + 5;
+                titleDisplacement = string_height(titleText[currentPlayer]) + 20;
                 draw_set_font(MenuFont);
                 itemDisplament = string_height(menuItem[currentMenu[currentPlayer],currentItem[currentMenu[currentPlayer],currentPlayer]]);
                 if (window_view_mouse_get_x(currentPlayer) &gt; view_xview[currentPlayer]) and (window_view_mouse_get_x(currentPlayer) &lt; view_xview[currentPlayer] + view_wview[currentPlayer]) and (mouse_y &gt; view_yview[currentPlayer]) and (mouse_y &lt; view_yview[currentPlayer] + view_hview[currentPlayer]) { 
@@ -666,8 +666,8 @@ voice[2] = "Xander";
                 draw_set_color(c_default)
                 if menuDraw = currentItem[currentMenu[currentPlayer],currentPlayer] {
                     //draw_set_color(c_selected);
-                    draw_sprite(sprSelectLeft,0,view_xview[currentPlayer] + view_wview[currentPlayer] / 2 - string_width(drawItem) / 2 - 5 - cos(radtodeg(current_time)),view_yview[currentPlayer] + titleDisplacement + itemDisplament*menuDraw);
-                    draw_sprite(sprSelectRight,0,view_xview[currentPlayer] + view_wview[currentPlayer] / 2 + string_width(drawItem) / 2 + cos(radtodeg(current_time)),view_yview[currentPlayer] + titleDisplacement + itemDisplament*menuDraw);
+                    draw_sprite(sprSelectLeft,0,view_xview[currentPlayer] + view_wview[currentPlayer] / 2 - string_width(drawItem) / 2 - 8 - cos(0.25 * degtorad(current_time)),view_yview[currentPlayer] + titleDisplacement + itemDisplament*menuDraw);
+                    draw_sprite(sprSelectRight,0,view_xview[currentPlayer] + view_wview[currentPlayer] / 2 + string_width(drawItem) / 2 + cos(0.25 * degtorad(current_time)),view_yview[currentPlayer] + titleDisplacement + itemDisplament*menuDraw);
                     
                 } else {
                     draw_set_color(c_default);

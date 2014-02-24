@@ -47,6 +47,7 @@
     <sprite>sprites\sprStation</sprite>
     <sprite>sprites\sprSelectLeft</sprite>
     <sprite>sprites\sprSelectRight</sprite>
+    <sprite>sprites\sprButtonBG</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkgSpace0</background>
@@ -135,6 +136,7 @@
     <object>objects\createPlayers</object>
     <object>objects\objShip</object>
     <object>objects\objStation</object>
+    <object>objects\object16</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rmMain</room>
