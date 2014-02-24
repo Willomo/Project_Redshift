@@ -5,5 +5,7 @@ Project Redshift Development Github
 
 William:
 Todo-
--[ ]Revamp Network Lobby
--[ ]Add in sound +- buttons
+
+1.Revamp Network Lobby
+
+2.Add in sound +- buttons
