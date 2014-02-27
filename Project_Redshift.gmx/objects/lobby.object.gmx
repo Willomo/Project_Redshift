@@ -31,9 +31,24 @@ if (mouse_x &lt; string_width("Back") + 5) and (mouse_y &lt; string_height("Back
 } else {
     switch lobbyOption[selectedItem] {
         case "Ship Name:":
-        
+            if selectAble {
+                selectAble = false;
+                type = false;
+            } else {
+                selectAble = true;
+                type = true;
+            }
         break;
         case "Password:":
+            
+            if selectAble {
+                selectAble = false;
+                type = false;
+            } else {
+                selectAble = true;
+                type = true;
+            }
+            
             if global.host {
             
             } else {
@@ -41,6 +56,14 @@ if (mouse_x &lt; string_width("Back") + 5) and (mouse_y &lt; string_height("Back
             }    
         break;
         case "Port:":
+        
+            if selectAble {
+                selectAble = false;
+                type = false;
+            } else {
+                selectAble = true;
+                type = true;
+            }
             if global.host {
             
             } else {
@@ -48,9 +71,23 @@ if (mouse_x &lt; string_width("Back") + 5) and (mouse_y &lt; string_height("Back
             }
         break;
         case "Maximum Crew Size:":
+            if selectAble {
+                selectAble = false;
+                type = false;
+            } else {
+                selectAble = true;
+                type = true;
+            }
         
         break;
         case "IP:":
+            if selectAble {
+                selectAble = false;
+                type = false;
+            } else {
+                selectAble = true;
+                type = true;
+            }
         
         break;
         case "":
@@ -88,9 +125,14 @@ if (mouse_x &lt; string_width("Back") + 5) and (mouse_y &lt; string_height("Back
             <string>lobbyActivated = false;
 keyboardTaken = false;
 endString = "";
-endCursor = "";
+endCursor = "|";
 selectedItem = 0;
+nameType = false;
+nameType = false;
+nameType = false;
 type = false;
+selectAble = true;
+
 draw_set_valign(fa_center);
 randomize();
 switch irandom(4) {
@@ -214,7 +256,7 @@ if global.host {
         
         itemHeight = string_height("String Height");
         
-        if !type and (window_view_mouse_get_x(currentPlayer) &gt; view_xview[currentPlayer]) and (window_view_mouse_get_x(currentPlayer) &lt; view_xview[currentPlayer] + view_wview[currentPlayer]) and (window_view_mouse_get_y(currentPlayer) &gt; view_yview[currentPlayer]) and (window_view_mouse_get_y(currentPlayer) &lt; view_yview[currentPlayer] + view_hview[currentPlayer]) { 
+        if selectAble and (window_view_mouse_get_x(currentPlayer) &gt; view_xview[currentPlayer]) and (window_view_mouse_get_x(currentPlayer) &lt; view_xview[currentPlayer] + view_wview[currentPlayer]) and (window_view_mouse_get_y(currentPlayer) &gt; view_yview[currentPlayer]) and (window_view_mouse_get_y(currentPlayer) &lt; view_yview[currentPlayer] + view_hview[currentPlayer]) { 
                         
             item = round((view_yview[currentPlayer] + window_view_mouse_get_y(currentPlayer) - titleHeight) / itemHeight);
             
@@ -241,14 +283,20 @@ if global.host {
                     draw_sprite(sprSelectRight,0,view_xview[currentPlayer] + view_wview[currentPlayer] / 2 + string_width(lobbySecondary[selectedItem]) / 2 + cos(0.25 * degtorad(current_time)),view_yview[currentPlayer] + titleHeight + itemHeight*drawCount);
                 } 
             } else {
+                /*if type and drawCount = selectedItem {
+                    endString = endCursor;
+                } else {
+                    endString = "";
+                }*/
                 draw_set_halign(fa_left);
                 if drawCount = selectedItem {
                     draw_sprite(sprSelectLeft,0,view_xview[currentPlayer] + view_wview[currentPlayer] / 2 - string_width(lobbyOption[selectedItem]) - 8 - cos(0.25 * degtorad(current_time)),view_yview[currentPlayer] + titleHeight + itemHeight*drawCount);
-                    draw_sprite(sprSelectRight,0,view_xview[currentPlayer] + view_wview[currentPlayer] / 2 + string_width(lobbySecondary[selectedItem]) + cos(0.25 * degtorad(current_time)),view_yview[currentPlayer] + titleHeight + itemHeight*drawCount);
+                    draw_sprite(sprSelectRight,0,view_xview[currentPlayer] + view_wview[currentPlayer] / 2 + string_width(lobbySecondary[selectedItem]) + cos(0.25 * degtorad(current_time)) + string_width(endString),view_yview[currentPlayer] + titleHeight + itemHeight*drawCount);
                 }
-                endString = endCursor;
+                
             }
             draw_text(view_xview[currentPlayer] + view_wview[currentPlayer] / 2,view_yview[currentPlayer] + titleHeight + drawCount * itemHeight,lobbySecondary[drawCount] + endString);
+            
             
         }
         draw_set_halign(fa_left);
