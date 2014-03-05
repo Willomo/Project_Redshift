@@ -219,7 +219,7 @@ if nameEnabled and !typePause{
           <argument>
             <kind>1</kind>
             <string>typePause = false;
-alarm[10] = 0;
+alarm[10] = -1;
 </string>
           </argument>
         </arguments>

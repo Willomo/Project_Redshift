@@ -8,6 +8,171 @@
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
+    <event eventtype="2" enumb="10">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>typePause = false;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="6">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if !selectAble {
+    if endCursor = "" {
+        endCursor = "|"
+    } else {
+        endCursor = ""
+    }
+    
+    alarm[6] = 30;
+    
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="5" enumb="1">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>letterHold = addLetter()
+
+if letterHold = "" and !keyboard_check(vk_backspace){
+    typePause = false;
+    alarm[10] = -1;
+} else {
+    typePause = true;
+    alarm[10] = 5;
+}
+
+if type[0] and !typePause {
+    if lobbyOption[0] = "Ship Name:" {
+        if keyboard_check(vk_backspace) {
+            if string_length(lobbySecondary[selectedItem]) &gt; 0 {
+                lobbySecondary[selectedItem] = removeLetter(lobbySecondary[selectedItem]);
+            }
+        } else {
+            if string_length(lobbySecondary[selectedItem]) &lt; 16 {
+                lobbySecondary[selectedItem] += addLetter();
+            }
+        }
+    } else {
+        if keyboard_check(vk_backspace) {
+            if string_length(lobbySecondary[selectedItem]) &gt; 0 {
+                lobbySecondary[selectedItem] = removeLetter(lobbySecondary[selectedItem]);
+            }
+        } else {
+            if string_length(lobbySecondary[selectedItem]) &lt; 16 {
+                lobbySecondary[selectedItem] += addNumber(true);
+            }
+        }
+    }
+} else if type[1] {
+    if keyboard_check(vk_backspace) {
+        if string_length(lobbySecondary[selectedItem]) &gt; 0 {
+            lobbySecondary[selectedItem] = removeLetter(lobbySecondary[selectedItem]);
+        }
+    } else {
+        if string_length(lobbySecondary[selectedItem]) &lt; 16 {
+            lobbySecondary[selectedItem] += addLetter();
+        }
+    }
+
+} else if type[2] {
+    if keyboard_check(vk_backspace) {
+        if string_length(lobbySecondary[selectedItem]) &gt; 0 {
+            lobbySecondary[selectedItem] = removeLetter(lobbySecondary[selectedItem]);
+        }
+    } else {
+        if string_length(lobbySecondary[selectedItem]) &lt; 16 {
+            lobbySecondary[selectedItem] += addNumber(false);
+        }
+    }
+} if type[3] {if keyboard_check(vk_backspace) {
+        if string_length(lobbySecondary[selectedItem]) &gt; 0 {
+            lobbySecondary[selectedItem] = removeLetter(lobbySecondary[selectedItem]);
+        }
+    } else {
+        if string_length(lobbySecondary[selectedItem]) &lt; 16 {
+            lobbySecondary[selectedItem] += addNumber(false);
+        }
+    }
+}
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="5" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>typePause = false;
+alarm[10] = -1;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="6" enumb="56">
       <action>
         <libid>1</libid>
@@ -33,20 +198,47 @@ if (mouse_x &lt; string_width("Back") + 5) and (mouse_y &lt; string_height("Back
         case "Ship Name:":
             if selectAble {
                 selectAble = false;
-                type = false;
+                type[0] = true;
+                endCursor = "|";
+                alarm[6] = 30;
+                hold = lobbySecondary[selectedItem];
             } else {
                 selectAble = true;
-                type = true;
+                type[0] = false;
+                endCursor = "";
+                if lobbySecondary[selectedItem] = "" {
+                    lobbySecondary[selectedItem] = hold;
+                }
             }
+        break;
+        case "IP:":
+            if selectAble {
+                selectAble = false;
+                type[0] = true;
+                endCursor = "|";
+                alarm[6] = 30;
+                hold = lobbySecondary[selectedItem];
+            } else {
+                selectAble = true;
+                type[0] = false;
+                endCursor = "";
+                if lobbySecondary[selectedItem] = "" {
+                    lobbySecondary[selectedItem] = hold;
+                }
+            }
+        
         break;
         case "Password:":
             
             if selectAble {
                 selectAble = false;
-                type = false;
+                type[1] = true;
+                endCursor = "|";
+                alarm[6] = 30;
             } else {
                 selectAble = true;
-                type = true;
+                type[1] = false;
+                endCursor = "";
             }
             
             if global.host {
@@ -59,10 +251,17 @@ if (mouse_x &lt; string_width("Back") + 5) and (mouse_y &lt; string_height("Back
         
             if selectAble {
                 selectAble = false;
-                type = false;
+                type[2] = true;
+                endCursor = "|";
+                alarm[6] = 30;
+                hold = lobbySecondary[selectedItem];
             } else {
                 selectAble = true;
-                type = true;
+                type[2] = false;
+                endCursor = "";
+                if lobbySecondary[selectedItem] = "" {
+                    lobbySecondary[selectedItem] = hold;
+                }
             }
             if global.host {
             
@@ -73,20 +272,17 @@ if (mouse_x &lt; string_width("Back") + 5) and (mouse_y &lt; string_height("Back
         case "Maximum Crew Size:":
             if selectAble {
                 selectAble = false;
-                type = false;
+                type[3] = true;
+                endCursor = "|";
+                alarm[6] = 30;
+                hold = lobbySecondary[selectedItem];
             } else {
                 selectAble = true;
-                type = true;
-            }
-        
-        break;
-        case "IP:":
-            if selectAble {
-                selectAble = false;
-                type = false;
-            } else {
-                selectAble = true;
-                type = true;
+                type[3] = false;
+                endCursor = "";
+                if lobbySecondary[selectedItem] = "" {
+                    lobbySecondary[selectedItem] = hold;
+                }
             }
         
         break;
@@ -130,7 +326,7 @@ selectedItem = 0;
 nameType = false;
 nameType = false;
 nameType = false;
-type = false;
+//type = false;
 selectAble = true;
 
 draw_set_valign(fa_center);
@@ -195,6 +391,10 @@ if global.host {
     lobbySecondary[2] = "2014";
     lobbySecondary[3] = "Join Server";
     //lobbySecondary[4] = "";
+}
+
+for (i=0;i&lt;array_length_1d(lobbyOption);i++) {
+    type[i] = false;
 }
 </string>
           </argument>
@@ -282,12 +482,13 @@ if global.host {
                     draw_sprite(sprSelectLeft,0,view_xview[currentPlayer] + view_wview[currentPlayer] / 2 - string_width(lobbySecondary[selectedItem]) / 2 - 8 - cos(0.25 * degtorad(current_time)),view_yview[currentPlayer] + titleHeight + itemHeight*drawCount);
                     draw_sprite(sprSelectRight,0,view_xview[currentPlayer] + view_wview[currentPlayer] / 2 + string_width(lobbySecondary[selectedItem]) / 2 + cos(0.25 * degtorad(current_time)),view_yview[currentPlayer] + titleHeight + itemHeight*drawCount);
                 } 
+                endString = "";
             } else {
-                /*if type and drawCount = selectedItem {
+                if type[drawCount] {
                     endString = endCursor;
                 } else {
                     endString = "";
-                }*/
+                }
                 draw_set_halign(fa_left);
                 if drawCount = selectedItem {
                     draw_sprite(sprSelectLeft,0,view_xview[currentPlayer] + view_wview[currentPlayer] / 2 - string_width(lobbyOption[selectedItem]) - 8 - cos(0.25 * degtorad(current_time)),view_yview[currentPlayer] + titleHeight + itemHeight*drawCount);
