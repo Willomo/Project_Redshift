@@ -82,13 +82,13 @@
             <kind>1</kind>
             <string>letterHold = addLetter()
 
-if letterHold = "" and !keyboard_check(vk_backspace){
+/*if letterHold = "" and !keyboard_check(vk_backspace){
     typePause = false;
     alarm[10] = -1;
 } else {
     typePause = true;
     alarm[10] = 5;
-}
+}*/
 
 if type[0] and !typePause {
     if lobbyOption[0] = "Ship Name:" {
@@ -112,7 +112,7 @@ if type[0] and !typePause {
             }
         }
     }
-} else if type[1] {
+} else if type[1] and !typePause {
     if keyboard_check(vk_backspace) {
         if string_length(lobbySecondary[selectedItem]) &gt; 0 {
             lobbySecondary[selectedItem] = removeLetter(lobbySecondary[selectedItem]);
@@ -123,22 +123,23 @@ if type[0] and !typePause {
         }
     }
 
-} else if type[2] {
+} else if type[2] and !typePause {
     if keyboard_check(vk_backspace) {
         if string_length(lobbySecondary[selectedItem]) &gt; 0 {
             lobbySecondary[selectedItem] = removeLetter(lobbySecondary[selectedItem]);
         }
     } else {
-        if string_length(lobbySecondary[selectedItem]) &lt; 16 {
+        if string_length(lobbySecondary[selectedItem]) &lt; 6 {
             lobbySecondary[selectedItem] += addNumber(false);
         }
     }
-} if type[3] {if keyboard_check(vk_backspace) {
+} if type[3] and !typePause {
+    if keyboard_check(vk_backspace) {
         if string_length(lobbySecondary[selectedItem]) &gt; 0 {
             lobbySecondary[selectedItem] = removeLetter(lobbySecondary[selectedItem]);
         }
     } else {
-        if string_length(lobbySecondary[selectedItem]) &lt; 16 {
+        if string_length(lobbySecondary[selectedItem]) &lt; 2 {
             lobbySecondary[selectedItem] += addNumber(false);
         }
     }
@@ -328,6 +329,7 @@ nameType = false;
 nameType = false;
 //type = false;
 selectAble = true;
+typePause = false;
 
 draw_set_valign(fa_center);
 randomize();
@@ -503,6 +505,29 @@ for (i=0;i&lt;array_length_1d(lobbyOption);i++) {
         draw_set_halign(fa_left);
     }
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="10" enumb="1">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>typePause = false;
 </string>
           </argument>
         </arguments>
